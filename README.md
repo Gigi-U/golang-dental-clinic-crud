@@ -40,7 +40,6 @@ odontológica.
           -  CRUD Turnos
           -  se tiene que poder permitir asignar a un paciente un turno con un odontólogo a una determinada fecha y hora. 
           -  Al turno se le debe poder  agregar una descripción. 
-          -  CRUD Turnos
 
     🛡️    Seguridad mediante middleware: 
           -  se tiene que proveer cierta seguridad al momento de realizar POST, PUT, PATCH y DELETE. 
