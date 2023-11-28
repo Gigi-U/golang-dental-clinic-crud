@@ -11,11 +11,11 @@ CTD Digital House - EB3 Go  - Trabajo Final Integrador  - CRUD de Sistema de res
 <div>   
 
   ## Integrantes 🤜🏼🤛🏼
-  <li>Converso, Lara Daniela</li> 
-  <li>...</li>   
-  <li>...</li>   
-  <li>Urriza y Spreafichi, Sonia Gisela</li>   
-  
+  - Bonillo, Eugenia  
+  - Colman, Jennifer
+  - Converso, Lara Daniela
+  - Urriza y Spreafichi, Sonia Gisela  
+      
   ## Fecha de Entrega 📅
   Fecha de entrega: [04/12/2023]
 </div>
