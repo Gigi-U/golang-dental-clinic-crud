@@ -33,8 +33,8 @@ odontológica.
           -  Registrar apellido, nombre y matrícula de los mismos.    
      
     🛠️   Administración de datos de los pacientes:     
-          -  CRUD pacientes. 
-          -  De cada uno se almacenan: nombre, apellido, domicilio, DNI y fecha de alta. 
+          ✔️  CRUD pacientes. 
+          ✔️  De cada uno se almacenan: nombre, apellido, domicilio, DNI y fecha de alta. 
           
     🛠️   Registrar turno: 
           -  CRUD Turnos
@@ -50,10 +50,71 @@ odontológica.
 
   ## Requerimientos técnicos 🚀🚀
 
-  La aplicación debe ser desarrollada en diseño orientado a paquetes:    
+La aplicación debe ser desarrollada en diseño orientado a paquetes:    
   
-      📁 Capa/dominio de entidades de negocio.
-      📁 Capa/dominio de acceso a datos (Repository).
-      📁 Capa de acceso a datos (base de datos): es la base de datos de nuestro sistema. Podrás utilizar cualquier base de datos relacional modelado a través de un modelo entidad-relación, como H2 o MySQL, o no relacional, como MongoDB.
-      📁 Capa/dominio service.
-      📁 Capa/dominio handler.
+-------------------------------------------------------------------------------------------
+✔️ Estructura proyecto: 
+-------------------------------------------------------------------------------------------
+
+
+      EB3_DESAFIO_FINAL_GRUPO03
+        |--> go.mod + go.sum + .env
+        |
+        |___.vscode --> settings.json
+        |   
+        |___cmd
+        |   |____server
+        |        |______handler
+        |        |       |______appointments --> appointments.go
+        |        |       |______dentists--> dentists.go
+        |        |       |______patients --> patients.go
+        |        |       |______ping --> ping.go
+        |        |
+        |        |_______ router --> router.go
+        |        |          
+        |        |--> main.go
+        |
+        |___docs
+        |   |   --> docs.go
+        |   |___ swagger
+        |   |___ etc...
+        |
+        |___internal
+        |   |_______appointments  --> repository.go + service.go + interface.go + query.go
+        |   |_______dentists  --> repository.go + service.go  + interface.go + query.go
+        |   |_______models --> appointments.go + dentists.go  + patients.go 
+        |   |_______patients --> repository.go + service.go + interface.go + query.go
+        |
+        |____pkg
+            |______middleware --> logger.go + security.go
+            |______utils ??
+            |______web --> response.go
+
+
+-------------------------------------------------------------------------------------------
+✔️ COMMANDS para paquetes y/o librerias
+-------------------------------------------------------------------------------------------
+      -   repository clone --> git clone git@github.com:Gigi-U/eb3_desafio_Final_grupo03.git
+
+      -   SERVIDOR WEB --> go mod init github.com/Gigi-U/eb3_desafio_Final_grupo03.git
+
+      -   GIN --> command: go get -u github.com/gin-gonic/gin  
+
+      -   VARIABLES DE ENTORNO -- > go get -u github.com/joho/godotenv
+
+      -   DB --> go get -u github.com/go-sql-driver/mysql
+
+      -   PROBLEMS --> go mod tidy
+
+
+-------------------------------------------------------------------------------------------
+✔️ OTROS
+-------------------------------------------------------------------------------------------
+
+      Para configuración para el entorno de desarrollo de Go en VSC.
+      En archivo settings.json (carpeta .vscode) =
+
+      {
+      "go.lintTool": "golangci-lint",
+      "go.lintFlags": ["--fast"]
+      } 

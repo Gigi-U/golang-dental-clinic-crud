@@ -1,5 +1,112 @@
 package main
 
+import (
+	"database/sql"
+	"fmt"
+	"log"
+
+	handlerPing "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/ping"
+
+	handlerPatients "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/patients"
+
+
+	"github.com/joho/godotenv"
+
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
+
+
+	_ "github.com/go-sql-driver/mysql"
+
+	"github.com/gin-gonic/gin"
+)
+
 func main() {
 
+	// Loads the environment variables
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Loads the MySQL database
+	db:= connectDB()
+	
+	// Pings´ Controller --------------------------
+	controllerPing 		:= handlerPing.NewControllerPing()
+
+	// patient´ Repository | patients´ Service | patients´ Controller --------------------------
+	patientsRepository  := patients.NewMySqlRepository(db)
+	patientsService 	:= patients.NewServicePatients(patientsRepository)
+	patientsController 	:= handlerPatients.NewControllerPatients(patientsService)
+
+	// dentists´ Repository | dentists´ Service | dentists´ Controller --------------------------
+	
+	// finals´ Repository | finals´ Service | finals´ Controller ---------------------------------
+
+
+
+	engine := gin.Default()
+	engine.Use(gin.Recovery())
+
+	// Router group´s
+	group := engine.Group("/api/v1")
+	{
+		group.GET("/ping", controllerPing.HandlerPing())
+		// Group Patients-------------------------------------------------------------------
+		groupPatients := group.Group("/patients")
+		{
+			groupPatients.POST("", patientsController.HandlerCreate())
+			groupPatients.GET("/:id", patientsController.HandlerGetByID())
+			groupPatients.PUT("/:id", patientsController.HandlerUpdate())
+			groupPatients.PATCH("/:id", patientsController.HandlerPatch())
+			groupPatients.DELETE("/:id", patientsController.HandlerDelete())
+		}
+	
+		// Group Dentists-------------------------------------------------------------------
+
+
+
+		// Group Appointments-------------------------------------------------------------------
+
+
+
+	}
+	// if engine runner fails , it stops all
+	if err := engine.Run(":8080"); err != nil {
+		log.Fatal(err)
+	}	
+	
 }
+
+// ConnectDb is a function that connects to the MySQL database
+func connectDB() *sql.DB {
+	var dbUsername, dbPassword, dbHost, dbPort, dbName string
+	dbUsername = "root"
+	dbPassword = "root"
+	dbHost = "localhost"
+	dbPort = "3306"
+	dbName = "dental_clinic_team3"
+	
+	// connection String
+	datasource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", dbUsername, dbPassword, dbHost, dbPort, dbName)
+	
+	db, err := sql.Open("mysql", datasource)
+	if err != nil {
+		panic(err)
+	}
+	
+	if err := db.Ping(); err != nil {
+		panic(err)
+	}
+	
+	return db
+}
+
+/* ENDPOINTS  
+PING -->
+http://localhost:8080/api/v1/ping
+
+GetPatientById -->
+http://localhost:8080/api/v1/patients/1 
+
+*/
