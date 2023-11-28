@@ -29,7 +29,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/2",
+							"raw": "http://localhost:8080/api/v1/patients/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -39,7 +39,7 @@
 								"api",
 								"v1",
 								"patients",
-								"2"
+								"1"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -64,16 +64,10 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "\"equipo3\"",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"last_name\": \"Urriza\",\n    \"first_name\": \"Carmela\",\n    \"personal_id\": \"123123\",\n    \"home_address\":{\n        \"street\": \"Mi Calle\",\n        \"number\": 123456,\n        \"city\": \"CABA\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2014-10-01T00:00:00Z\"\n}\n",
+							"raw": "{\n\t\"last_name\": \"Ryan\",\n    \"first_name\": \"Jack\",\n    \"personal_id\": \"8888\",\n    \"home_address\":{\n        \"street\": \"Su Calle Secreta\",\n        \"number\": 123456,\n        \"city\": \"La Plata\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2015-10-01T00:00:00Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -91,13 +85,6 @@
 								"api",
 								"v1",
 								"patients"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
 							]
 						},
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
@@ -122,16 +109,10 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "\"dh1234\"",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"last_name\": \"Cambiando Apellido\",\n    \"first_name\": \"Cambiando Nombre\",\n    \"personal_id\": \"2777\",\n    \"home_address\": {\n        \"street\": \"Su Calle\",\n        \"number\": 123,\n        \"city\": \"Springfield\",\n        \"province\": \"Massachusets\"\n    },\n    \"admission_date\": \"2020-10-03T00:00:00Z\"\n}\n",
+							"raw": "{\n\t\"last_name\": \"Ryan\",\n    \"first_name\": \"Jack\",\n    \"personal_id\": \"8888\",\n    \"home_address\":{\n        \"street\": \"Su Nueva Calle Secreta\",\n        \"number\": 123456,\n        \"city\": \"La Plata\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2015-10-01T00:00:00Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -139,7 +120,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/2",
+							"raw": "http://localhost:8080/api/v1/patients/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -149,7 +130,7 @@
 								"api",
 								"v1",
 								"patients",
-								"2"
+								"1"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -174,16 +155,10 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "dh1234",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Cambiando Solo el Nombre\"\n}\n\n",
+							"raw": "{\n    \"home_address_street\": \"Se peleó con la pareja y volvió a si casa\"\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,7 +166,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/2",
+							"raw": "http://localhost:8080/api/v1/patients/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -201,7 +176,7 @@
 								"api",
 								"v1",
 								"patients",
-								"2"
+								"1"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -237,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/3",
+							"raw": "http://localhost:8080/api/v1/patients/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -247,7 +222,7 @@
 								"api",
 								"v1",
 								"patients",
-								"3"
+								"1"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
