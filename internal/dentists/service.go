@@ -19,7 +19,7 @@ type service struct {
 	repository Repository
 }
 
-func NewServiceDentist(repository Repository) Service {
+func NewServiceDentists(repository Repository) Service {
 	return &service{repository: repository}
 }
 
