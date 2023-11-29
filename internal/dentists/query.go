@@ -2,8 +2,7 @@ package dentists
 
 var (
 	// QueryInsertDentist is a query that inserts a dentist
-	QueryInsertDentist = `INSERT INTO dentists (last_name, first_name, professional_license,
-		) VALUES (?, ?, ?)`
+	QueryInsertDentist = `INSERT INTO dentists (last_name, first_name, professional_license) VALUES (?, ?, ?)`
 
 	// QueryGetDentistById is a query that gets a dentist by id
 	QueryGetDentistById = `SELECT * FROM dentists where id = ?`
