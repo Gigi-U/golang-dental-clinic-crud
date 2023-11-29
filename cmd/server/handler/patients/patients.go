@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
 	"github.com/gin-gonic/gin"
 )
 
@@ -35,12 +35,11 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		// Procesar la fecha antes de pasarla al servicio
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "Error parsing birth date",
+				"message": "Error parsing admission date",
 				"error":   err,
 			})
 			return
 		}
-
 
 		patient, err := c.service.Create(ctx, patientRequest)
 		if err != nil {
@@ -51,9 +50,8 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": patient,
+			"data":    patient,
 			"message": "Patient created",
-
 		})
 
 	}
@@ -71,7 +69,7 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"message": "bad request",
-				"error":   err,			
+				"error":   err,
 			})
 			return
 		}
@@ -86,7 +84,7 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": patient,
+			"data":    patient,
 			"message": "Patient found",
 		})
 	}
@@ -106,7 +104,7 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"message": "bad request",
-				"error":   err,			
+				"error":   err,
 			})
 			return
 		}
@@ -129,9 +127,8 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": updatedPatient,
+			"data":    updatedPatient,
 			"message": "Patient updated",
-
 		})
 	}
 }
@@ -162,7 +159,7 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 			return
 		}
 		// Call the service to partially update
-		partiallyUpdatedPatient, err := c.service.Patch(ctx,partialUpdates, id)
+		partiallyUpdatedPatient, err := c.service.Patch(ctx, partialUpdates, id)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 				"message": "Internal server error",
@@ -172,9 +169,8 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 		}
 
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": partiallyUpdatedPatient,
+			"data":    partiallyUpdatedPatient,
 			"message": "Patient partially updated",
-
 		})
 	}
 }
@@ -191,7 +187,7 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"message": "bad request",
-				"error":   err,			
+				"error":   err,
 			})
 			return
 		}
@@ -210,4 +206,3 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		})
 	}
 }
-

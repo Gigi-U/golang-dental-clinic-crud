@@ -9,11 +9,13 @@ import (
 
 	handlerPatients "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/patients"
 
+	handlerDentists "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/dentists"
 
 	"github.com/joho/godotenv"
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
 
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/dentists"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -29,21 +31,22 @@ func main() {
 	}
 
 	// Loads the MySQL database
-	db:= connectDB()
-	
+	db := connectDB()
+
 	// Pings´ Controller --------------------------
-	controllerPing 		:= handlerPing.NewControllerPing()
+	controllerPing := handlerPing.NewControllerPing()
 
 	// patient´ Repository | patients´ Service | patients´ Controller --------------------------
-	patientsRepository  := patients.NewMySqlRepository(db)
-	patientsService 	:= patients.NewServicePatients(patientsRepository)
-	patientsController 	:= handlerPatients.NewControllerPatients(patientsService)
+	patientsRepository := patients.NewMySqlRepository(db)
+	patientsService := patients.NewServicePatients(patientsRepository)
+	patientsController := handlerPatients.NewControllerPatients(patientsService)
 
 	// dentists´ Repository | dentists´ Service | dentists´ Controller --------------------------
-	
+	dentistsRepository := dentists.NewMySqlRepository(db)
+	dentistsService := dentists.NewServiceDentists(dentistsRepository)
+	dentistsController := handlerDentists.NewControllerDentists(dentistsService)
+
 	// finals´ Repository | finals´ Service | finals´ Controller ---------------------------------
-
-
 
 	engine := gin.Default()
 	engine.Use(gin.Recovery())
@@ -61,21 +64,25 @@ func main() {
 			groupPatients.PATCH("/:id", patientsController.HandlerPatch())
 			groupPatients.DELETE("/:id", patientsController.HandlerDelete())
 		}
-	
+
 		// Group Dentists-------------------------------------------------------------------
-
-
+		groupDentists := group.Group("/dentists")
+		{
+			groupDentists.POST("", dentistsController.HandlerCreate())
+			groupDentists.GET("/:id", dentistsController.HandlerGetByID())
+			groupDentists.PUT("/:id", dentistsController.HandlerUpdate())
+			groupDentists.PATCH("/:id", dentistsController.HandlerPatch())
+			groupDentists.DELETE("/:id", dentistsController.HandlerDelete())
+		}
 
 		// Group Appointments-------------------------------------------------------------------
-
-
 
 	}
 	// if engine runner fails , it stops all
 	if err := engine.Run(":8080"); err != nil {
 		log.Fatal(err)
-	}	
-	
+	}
+
 }
 
 // ConnectDb is a function that connects to the MySQL database
@@ -86,27 +93,27 @@ func connectDB() *sql.DB {
 	dbHost = "localhost"
 	dbPort = "3306"
 	dbName = "dental_clinic_team3"
-	
+
 	// connection String
 	datasource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", dbUsername, dbPassword, dbHost, dbPort, dbName)
-	
+
 	db, err := sql.Open("mysql", datasource)
 	if err != nil {
 		panic(err)
 	}
-	
+
 	if err := db.Ping(); err != nil {
 		panic(err)
 	}
-	
+
 	return db
 }
 
-/* ENDPOINTS  
+/* ENDPOINTS
 PING -->
 http://localhost:8080/api/v1/ping
 
 GetPatientById -->
-http://localhost:8080/api/v1/patients/1 
+http://localhost:8080/api/v1/patients/1
 
 */
