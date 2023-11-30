@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	handlerAppointments "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/appointments"
 	handlerPing "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/ping"
 
 	handlerPatients "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/patients"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/joho/godotenv"
 
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/dentists"
@@ -46,7 +48,11 @@ func main() {
 	dentistsService := dentists.NewServiceDentists(dentistsRepository)
 	dentistsController := handlerDentists.NewControllerDentists(dentistsService)
 
-	// finals´ Repository | finals´ Service | finals´ Controller ---------------------------------
+	// appointments´ Repository | appointments´ Service | appointments´ Controller ---------------------------------
+
+	appointmentsRepository := appointments.NewMySqlRepository(db)
+	appointmentsService := appointments.NewServiceAppointments(appointmentsRepository)
+	appoitmentsController := handlerAppointments.NewControllerAppointments(appointmentsService)
 
 	engine := gin.Default()
 	engine.Use(gin.Recovery())
@@ -76,6 +82,15 @@ func main() {
 		}
 
 		// Group Appointments-------------------------------------------------------------------
+		groupAppointments := group.Group("/appointments")
+		{
+			groupAppointments.POST("", appoitmentsController.HandlerCreate())
+			groupAppointments.GET("/:id", appoitmentsController.HandlerGetByID())
+			groupAppointments.PUT("/:id", appoitmentsController.HandlerUpdate())
+			groupAppointments.PATCH("/:id", appoitmentsController.HandlerPatch())
+			groupAppointments.DELETE("/:id", appoitmentsController.HandlerDelete())
+			groupAppointments.GET("/patient/:Patients_personal_id", appoitmentsController.HandlerGetByPatientsPersonalID())
+		}
 
 	}
 	// if engine runner fails , it stops all
@@ -89,7 +104,7 @@ func main() {
 func connectDB() *sql.DB {
 	var dbUsername, dbPassword, dbHost, dbPort, dbName string
 	dbUsername = "root"
-	dbPassword = "root"
+	dbPassword = "root" //root
 	dbHost = "localhost"
 	dbPort = "3306"
 	dbName = "dental_clinic_team3"
