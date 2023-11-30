@@ -196,7 +196,7 @@ func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, 
 		return models.Appointment{}, fmt.Errorf("error getting rows affected for Patch: %v", err)
 	}
 	if rowsAffected == 0 {
-		return models.Appointment{}, errors.New("no rows updated")
+		return models.Appointment{}, errors.New("No rows updated. If you changed the appointment date please check its format ")
 	}
 
 	// Retrieve the updated patient from the database

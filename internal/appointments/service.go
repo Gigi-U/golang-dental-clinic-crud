@@ -2,9 +2,9 @@ package appointments
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
-
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/utils"
@@ -101,39 +101,52 @@ func (s *service) Patch(ctx context.Context, updates map[string]interface{}, id 
 }
 
 // applyPartialUpdates function
-func applyPartialUpdates(existingAppointment map[string]interface{}, updates map[string]interface{}) {
-	for key, value := range updates {
-		switch key {
-		case "dentists_professional_license", "patients_personal_id", "description":
-			// Handle all fields but date_and_time
-			existingAppointment[key] = value
-		case "date_and_time":
-			// Handle date_and_time field
-			if dateStr, ok := value.(string); ok {
-				// Parse the string to time.Time
-				newDate, err := time.Parse(time.RFC3339, dateStr)
-				if err != nil {
-					// Handle parsing error
-					log.Printf("Error parsing date_and_time: %v\n", err)
-					continue
-				}
+func applyPartialUpdates(existingAppointment map[string]interface{}, updates map[string]interface{}) (map[string]interface{}, error) {
+    changesMade := false
 
-				// Use the ConvertDate function to format the date
-				formattedDate, err := utils.ConvertDate(newDate)
-				if err != nil {
-					// Handle conversion error
-					log.Printf("Error converting date: %v\n", err)
-					continue
-				}
+    for key, value := range updates {
+        switch key {
+        case "dentists_professional_license", "patients_personal_id", "description":
+            // Handle all fields but date_and_time
+            existingAppointment[key] = value
+            changesMade = true
+        case "date_and_time":
+            // Handle date_and_time field
+            if dateStr, ok := value.(string); ok {
+                // Parse the string to time.Time
+                newDate, err := time.Parse(time.RFC3339, dateStr)
+                if err != nil {
+                    // Handle parsing error with a custom message
+                    log.Printf("Error parsing date_and_time: %v\n", err)
+                    return nil, fmt.Errorf("Please insert correct date format")
+                }
 
-				existingAppointment["date_and_time"] = formattedDate
-			} else {
-				log.Printf("Expected date_and_time to be string, got %T\n", value)
-			}
-		default:
-			log.Printf("Unknown field: %s\n", key)
-		}
-	}
+                // Use the ConvertDate function to format the date
+                formattedDate, err := utils.ConvertDate(newDate)
+                if err != nil {
+                    // Handle conversion error
+                    log.Printf("Error converting date: %v\n", err)
+                    return nil, fmt.Errorf("Error converting date: %v", err)
+                }
+
+                existingAppointment["date_and_time"] = formattedDate
+                changesMade = true
+            } else {
+                log.Printf("Expected date_and_time to be a string, got %T\n", value)
+                return nil, fmt.Errorf("Expected date_and_time to be a string, got %T", value)
+            }
+        default:
+            log.Printf("Unknown field: %s\n", key)
+            return nil, fmt.Errorf("Unknown field: %s", key)
+        }
+    }
+
+    // Check if any change was made
+    if !changesMade {
+        return nil, fmt.Errorf("No changes made")
+    }
+
+    return existingAppointment, nil
 }
 
 
