@@ -34,9 +34,10 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		}
 
 		appointment, err := c.service.Create(ctx, appointmentRequest)
+		
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error",
+				"message": "Internal server error ",
 			})
 			return
 		}
@@ -150,6 +151,7 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 			})
 			return
 		}
+		
 		// Call the service to partially update
 		partiallyUpdatedAppointment, err := c.service.Patch(ctx, appointmentUpdates, id)
 		if err != nil {

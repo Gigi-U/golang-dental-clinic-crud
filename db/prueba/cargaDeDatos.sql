@@ -34,10 +34,11 @@ VALUES ('Acuerdo', 'Nome', '2777','Su Calle', 123, 'Springfield', 'Massachusets'
 -- -----------------------------------------------------
 
 INSERT INTO `Appointments` (`Dentists_professional_license`, `Patients_personal_id`, `description`, `date_and_time`) 
-VALUES ('99999', '987654', 'This is an appointment for teeth extraction','2023-10-01 10:00:00');
+VALUES ('99999', '987654', 'This is an appointment for teeth extraction','2023-11-29 14:30:00');
 
 INSERT INTO `Appointments` (`Dentists_professional_license`, `Patients_personal_id`, `description`, `date_and_time`)
 VALUES ('99999', '2777', 'This is an appointment for teetappointmentsh whitening','2024-01-01 14:00:00');
 
 INSERT INTO `Appointments` (`Dentists_professional_license`, `Patients_personal_id`, `description`, `date_and_time`)
 VALUES ('7777', '987654', 'This is ANOTHER appointment for teeth extraction','2023-12-06 20:00:00');
+

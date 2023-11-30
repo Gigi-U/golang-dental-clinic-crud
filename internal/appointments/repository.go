@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
 )
@@ -32,7 +33,7 @@ func (r *repository) Create(ctx context.Context, appointment models.Appointment)
 	}
 
 	defer statement.Close()
-
+	log.Println(appointment)
 	result, err := statement.Exec(
 		appointment.Dentists_professional_license,
 		appointment.Patients_personal_id,
@@ -41,6 +42,7 @@ func (r *repository) Create(ctx context.Context, appointment models.Appointment)
 	)
 
 	if err != nil {
+		log.Println(err)
 		return models.Appointment{}, ErrExecStatement
 	}
 
@@ -139,9 +141,9 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 	return nil
 }
 
-func (r *repository) GetByPatientsPersonalID(ctx context.Context, patients_personal_id int) (models.Appointment, error) {
+func (r *repository) GetByPatientsPersonalID(ctx context.Context, id int) (models.Appointment, error) {
 
-	row := r.db.QueryRowContext(ctx, QueryGetAppointmentByPatientsId, patients_personal_id)
+	row := r.db.QueryRowContext(ctx, QueryGetAppointmentByPatientsId, id)
 
 	var appointment models.Appointment
 

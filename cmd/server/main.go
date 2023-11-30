@@ -89,7 +89,7 @@ func main() {
 			groupAppointments.PUT("/:id", appoitmentsController.HandlerUpdate())
 			groupAppointments.PATCH("/:id", appoitmentsController.HandlerPatch())
 			groupAppointments.DELETE("/:id", appoitmentsController.HandlerDelete())
-			groupAppointments.GET("/patient/:patients_personal_id", appoitmentsController.HandlerGetByPatientsPersonalID())
+			groupAppointments.GET("/patient/:Patients_personal_id", appoitmentsController.HandlerGetByPatientsPersonalID())
 		}
 
 	}
@@ -104,7 +104,7 @@ func main() {
 func connectDB() *sql.DB {
 	var dbUsername, dbPassword, dbHost, dbPort, dbName string
 	dbUsername = "root"
-	dbPassword = "Mysql8315" //root
+	dbPassword = "root" //root
 	dbHost = "localhost"
 	dbPort = "3306"
 	dbName = "dental_clinic_team3"

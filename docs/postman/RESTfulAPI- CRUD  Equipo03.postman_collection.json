@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"last_name\": \"Ryan\",\n    \"first_name\": \"Jack\",\n    \"personal_id\": \"8888\",\n    \"home_address\":{\n        \"street\": \"Su Calle Secreta\",\n        \"number\": 123456,\n        \"city\": \"La Plata\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2015-10-01T00:00:00Z\"\n}\n",
+							"raw": "{\n\t\"last_name\": \"Ryan\",\n    \"first_name\": \"Jack\",\n    \"personal_id\": \"12345\",\n    \"home_address\":{\n        \"street\": \"Su Calle Secreta\",\n        \"number\": 123456,\n        \"city\": \"La Plata\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2015-10-01T00:00:00Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,7 +120,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/1",
+							"raw": "http://localhost:8080/api/v1/patients/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -130,7 +130,7 @@
 								"api",
 								"v1",
 								"patients",
-								"1"
+								"3"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -166,7 +166,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/1",
+							"raw": "http://localhost:8080/api/v1/patients/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -176,7 +176,7 @@
 								"api",
 								"v1",
 								"patients",
-								"1"
+								"3"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -212,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/patients/1",
+							"raw": "http://localhost:8080/api/v1/patients/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -222,7 +222,7 @@
 								"api",
 								"v1",
 								"patients",
-								"1"
+								"3"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
@@ -288,16 +288,10 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "\"equipo3\"",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"last_name\": \"Gruñónd\",\n    \"first_name\": \"Elmerff\",\n    \"professional_license\": \"23456778\"\n}\n",
+							"raw": "{\n    \"last_name\": \"Muelitas\",\n    \"first_name\": \"Dr.\",\n    \"professional_license\": \"4444\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -346,16 +340,10 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "\"dh1234\"",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"last_name\": \"Gruñón\",\n    \"first_name\": \"Elmerff\",\n    \"professional_license\": \"23456778\",\n    \"appointments\": {}\n}\n",
+							"raw": "{\n    \"last_name\": \"Muelitas\",\n    \"first_name\": \"Dr.\",\n    \"professional_license\": \"5555\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -363,7 +351,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/dentists/1",
+							"raw": "http://localhost:8080/api/v1/dentists/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -373,7 +361,7 @@
 								"api",
 								"v1",
 								"dentists",
-								"1"
+								"3"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -398,16 +386,10 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "dh1234",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"elllmerrrr@gmail.com\"\n}\n\n",
+							"raw": "{\n        \"last_name\": \"Muelitas Cariadas\",\n        \"first_name\": \"Dr.\",\n        \"professional_license\": \"4444\"\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -415,7 +397,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/dentists/1",
+							"raw": "http://localhost:8080/api/v1/dentists/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -425,7 +407,7 @@
 								"api",
 								"v1",
 								"dentists",
-								"1"
+								"3"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -484,6 +466,58 @@
 			"name": "Appointments",
 			"item": [
 				{
+					"name": "PostAppointment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dentists_professional_license\": \"99999\",\n    \"patients_personal_id\": \"987654\",\n    \"description\": \"Creando Nueva Appointment \",\n    \"date_and_time\": \"2024-01-02T15:04:05Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
 					"name": "getAppointmentById",
 					"event": [
 						{
@@ -538,7 +572,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/Appointments/patientId/27777777",
+							"raw": "http://localhost:8080/api/v1/appointments/patient/987654",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -547,70 +581,12 @@
 							"path": [
 								"api",
 								"v1",
-								"Appointments",
-								"patientId",
-								"27777777"
+								"appointments",
+								"patient",
+								"987654"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
-					},
-					"response": []
-				},
-				{
-					"name": "PostAppointment",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Successful POST request\", function () {",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "\"equipo3\"",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"patient_personal_id\": \"27777777\",\n    \"professional_license\": \"23456778\",\n    \"date_and_time\": \"2023-12-21T16:15:00Z\"\n}\n\n// cambiar detalles",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1/appointments",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"appointments"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null,
-									"disabled": true
-								}
-							]
-						},
-						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
 					},
 					"response": []
 				},
@@ -632,16 +608,10 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "\"dh1234\"",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"patient_personal_id\": \"27777777\",\n    \"professional_license\": \"4566\", \n    \"admission_date\": \"2023-12-21T16:15:00Z\"\n}\n",
+							"raw": "{\n    \"dentists_professional_license\": \"99999\",\n    \"patients_personal_id\": \"987654\",\n    \"description\": \"Modificando desde Update\",\n    \"date_and_time\": \"2024-01-02T15:04:05Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -649,7 +619,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/appointments/1",
+							"raw": "http://localhost:8080/api/v1/appointments/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -659,7 +629,7 @@
 								"api",
 								"v1",
 								"appointments",
-								"1"
+								"4"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -684,16 +654,10 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [
-							{
-								"key": "tokenPostman",
-								"value": "dh1234",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"professional_license\": \"4566\" // probar de cambiar de profesional \n}\n",
+							"raw": "{\n    \"description\": \"Haciendo el patch de descripcion y fecha y hora\",\n    \"date_and_time\": \"2024-01-02T15:04:05Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -701,7 +665,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/appointments/1",
+							"raw": "http://localhost:8080/api/v1/appointments/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -711,7 +675,7 @@
 								"api",
 								"v1",
 								"appointments",
-								"1"
+								"4"
 							]
 						},
 						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
@@ -747,7 +711,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/appointment/3",
+							"raw": "http://localhost:8080/api/v1/appointments/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -756,8 +720,8 @@
 							"path": [
 								"api",
 								"v1",
-								"appointment",
-								"3"
+								"appointments",
+								"4"
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
