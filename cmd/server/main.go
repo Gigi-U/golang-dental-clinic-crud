@@ -112,7 +112,7 @@ func main() {
 func connectDB() *sql.DB {
 	var dbUsername, dbPassword, dbHost, dbPort, dbName string
 	dbUsername = "root"
-	dbPassword = "root" //root
+	dbPassword = "password" //root
 	dbHost = "localhost"
 	dbPort = "3306"
 	dbName = "dental_clinic_team3"
