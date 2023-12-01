@@ -1,0 +1,40 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This Api handles an odontological center",
+        "title": "EBE3-grupo3",
+        "termsOfService": "https://github.com/Gigi-U/eb3_desafio_Final_grupo03#readme",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/appointments": {
+            "post": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "create an appointment",
+                "responses": {}
+            }
+        },
+        "/appointments/{id}": {
+            "get": {
+                "tags": [
+                    "Appointments"
+                ],
+                "summary": "Retrieve an appointment by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Appointment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    }
+}

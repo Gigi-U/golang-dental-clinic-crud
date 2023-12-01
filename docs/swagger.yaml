@@ -1,0 +1,27 @@
+info:
+  contact: {}
+  description: This Api handles an odontological center
+  termsOfService: https://github.com/Gigi-U/eb3_desafio_Final_grupo03#readme
+  title: EBE3-grupo3
+  version: "1.0"
+paths:
+  /appointments:
+    post:
+      responses: {}
+      summary: create an appointment
+      tags:
+      - Appointments
+  /appointments/{id}:
+    get:
+      parameters:
+      - description: Appointment ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses: {}
+      summary: Retrieve an appointment by ID
+      tags:
+      - Appointments
+swagger: "2.0"

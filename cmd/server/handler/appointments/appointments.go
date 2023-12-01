@@ -7,7 +7,6 @@ import (
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
 	"github.com/gin-gonic/gin"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/web"
 )
 
 type Controller struct {
@@ -19,16 +18,9 @@ func NewControllerAppointments(service appointments.Service) *Controller {
 }
 
 // Method HandlerCreate is the handler needed to POST a patient
-// Appointments godoc
-// @Summary appointment example
-// @Description Create a new appointment
-// @Tags appointment
-// @Accept json
-// @Produce json
-// @Success 200 {object} web.response
-// @Failure 400 {object} web.errorResponse
-// @Failure 500 {object} web.errorResponse
-// @Router /Appointments [post]
+// @Summary create an appointment 
+// @Tags Appointments
+// @Router /appointments [post]
 func (c *Controller) HandlerCreate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -62,11 +54,10 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 }
 
 // Method HandlerGetByID is the handler needed to GET a appointment by its Id
-//@Summary
-//@Tags
-//@Produce
-//@Success
-//@Router
+// @Summary Retrieve an appointment by ID
+// @Tags Appointments
+// @Param id path int true "Appointment ID" Format(int64)
+// @Router /appointments/{id} [get]
 func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -100,11 +91,6 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 }
 
 // Method HandlerUpdate is the handler needed to UPDATE a patient by its Id
-//@Summary
-//@Tags
-//@Produce
-//@Success
-//@Router
 func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -148,11 +134,6 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 }
 
 // Method HandlerPatch is the handler needed to PATCH a patient by its Id
-//@Summary
-//@Tags
-//@Produce
-//@Success
-//@Router
 func (c *Controller) HandlerPatch() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -196,11 +177,6 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 }
 
 // Method HandlerDelete is the handler needed to DELETE a patient by its Id
-//@Summary
-//@Tags
-//@Produce
-//@Success
-//@Router
 func (c *Controller) HandlerDelete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -232,11 +208,7 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 	}
 }
 
-//@Summary
-//@Tags
-//@Produce
-//@Success
-//@Router
+
 func (c *Controller) HandlerGetByPatientsPersonalID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
