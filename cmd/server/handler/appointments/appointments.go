@@ -25,7 +25,7 @@ func NewControllerAppointments(service appointments.Service) *Controller {
 // @Tags appointment
 // @Accept json
 // @Produce json
-// @Success 200 {object} web.Response
+// @Success 200 {object} web.response
 // @Failure 400 {object} web.errorResponse
 // @Failure 500 {object} web.errorResponse
 // @Router /Appointments [post]
