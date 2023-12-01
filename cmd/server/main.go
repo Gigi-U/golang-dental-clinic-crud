@@ -7,6 +7,7 @@ import (
 
 	handlerAppointments "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/appointments"
 	handlerPing "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/ping"
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/middleware"
 
 	handlerPatients "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/patients"
 
@@ -23,6 +24,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+
+//@title EBE3-grupo3
+//@version 1.0
+//@description This Api handles an odontological center
+//@termsOfService https://github.com/Gigi-U/eb3_desafio_Final_grupo03#readme
 
 func main() {
 
@@ -56,6 +63,7 @@ func main() {
 
 	engine := gin.Default()
 	engine.Use(gin.Recovery())
+	engine.Use(middleware.Logger())
 
 	// Router group´s
 	group := engine.Group("/api/v1")
@@ -64,31 +72,31 @@ func main() {
 		// Group Patients-------------------------------------------------------------------
 		groupPatients := group.Group("/patients")
 		{
-			groupPatients.POST("", patientsController.HandlerCreate())
+			groupPatients.POST("", middleware.Authenticate(), patientsController.HandlerCreate())
 			groupPatients.GET("/:id", patientsController.HandlerGetByID())
-			groupPatients.PUT("/:id", patientsController.HandlerUpdate())
-			groupPatients.PATCH("/:id", patientsController.HandlerPatch())
-			groupPatients.DELETE("/:id", patientsController.HandlerDelete())
+			groupPatients.PUT("/:id", middleware.Authenticate(), patientsController.HandlerUpdate())
+			groupPatients.PATCH("/:id", middleware.Authenticate(), patientsController.HandlerPatch())
+			groupPatients.DELETE("/:id", middleware.Authenticate(), patientsController.HandlerDelete())
 		}
 
 		// Group Dentists-------------------------------------------------------------------
 		groupDentists := group.Group("/dentists")
 		{
-			groupDentists.POST("", dentistsController.HandlerCreate())
+			groupDentists.POST("", middleware.Authenticate(),dentistsController.HandlerCreate())
 			groupDentists.GET("/:id", dentistsController.HandlerGetByID())
-			groupDentists.PUT("/:id", dentistsController.HandlerUpdate())
-			groupDentists.PATCH("/:id", dentistsController.HandlerPatch())
-			groupDentists.DELETE("/:id", dentistsController.HandlerDelete())
+			groupDentists.PUT("/:id", middleware.Authenticate(), dentistsController.HandlerUpdate())
+			groupDentists.PATCH("/:id", middleware.Authenticate(), dentistsController.HandlerPatch())
+			groupDentists.DELETE("/:id", middleware.Authenticate(), dentistsController.HandlerDelete())
 		}
 
 		// Group Appointments-------------------------------------------------------------------
 		groupAppointments := group.Group("/appointments")
 		{
-			groupAppointments.POST("", appoitmentsController.HandlerCreate())
+			groupAppointments.POST("", middleware.Authenticate(), appoitmentsController.HandlerCreate())
 			groupAppointments.GET("/:id", appoitmentsController.HandlerGetByID())
-			groupAppointments.PUT("/:id", appoitmentsController.HandlerUpdate())
-			groupAppointments.PATCH("/:id", appoitmentsController.HandlerPatch())
-			groupAppointments.DELETE("/:id", appoitmentsController.HandlerDelete())
+			groupAppointments.PUT("/:id", middleware.Authenticate(), appoitmentsController.HandlerUpdate())
+			groupAppointments.PATCH("/:id", middleware.Authenticate(), appoitmentsController.HandlerPatch())
+			groupAppointments.DELETE("/:id", middleware.Authenticate(), appoitmentsController.HandlerDelete())
 			groupAppointments.GET("/patient/:Patients_personal_id", appoitmentsController.HandlerGetByPatientsPersonalID())
 		}
 
