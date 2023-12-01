@@ -29,24 +29,24 @@ odontológica.
   </p>
 
     🛠️   Administración de datos de odontólogos: 
-          -  CRUD odontólogos. 
-          -  Registrar apellido, nombre y matrícula de los mismos.    
+          ✔️  CRUD odontólogos. 
+          ✔️  Registrar apellido, nombre y matrícula de los mismos.    
      
     🛠️   Administración de datos de los pacientes:     
           ✔️  CRUD pacientes. 
           ✔️  De cada uno se almacenan: nombre, apellido, domicilio, DNI y fecha de alta. 
           
     🛠️   Registrar turno: 
-          -  CRUD Turnos
-          -  se tiene que poder permitir asignar a un paciente un turno con un odontólogo a una determinada fecha y hora. 
-          -  Al turno se le debe poder  agregar una descripción. 
+          ✔️  CRUD Turnos
+          ✔️  se tiene que poder permitir asignar a un paciente un turno con un odontólogo a una determinada fecha y hora. 
+          ✔️  Al turno se le debe poder  agregar una descripción. 
 
     🛡️    Seguridad mediante middleware: 
-          -  se tiene que proveer cierta seguridad al momento de realizar POST, PUT, PATCH y DELETE. 
-          -  Esta seguridad mediante autenticación deberá estar implementada mediante un middleware
+          ✔️  se tiene que proveer cierta seguridad al momento de realizar POST, PUT, PATCH y DELETE. 
+         ✔️  Esta seguridad mediante autenticación deberá estar implementada mediante un middleware
     
     📝   Documentación de la API: 
-          -  se debe proveer de la pertinente documentación de la API mediante la implementación de Swagger.
+          ✔️  se debe proveer de la pertinente documentación de la API mediante la implementación de Swagger.
 
   ## Requerimientos técnicos 🚀🚀
 
@@ -75,9 +75,11 @@ La aplicación debe ser desarrollada en diseño orientado a paquetes:
         |        |--> main.go
         |
         |___docs
-        |   |   --> docs.go
-        |   |___ swagger
-        |   |___ etc...
+        |   |___ documentation -- > enunciado
+        |   |___ postman --> RESTfulAPI- CRUD Equipo03.postman_collection
+        |   |___ swagger.JSON
+        |   |___ swagger.Yaml
+        |   | --> docs.go 
         |
         |___internal
         |   |_______appointments  --> repository.go + service.go + interface.go + query.go
@@ -87,9 +89,16 @@ La aplicación debe ser desarrollada en diseño orientado a paquetes:
         |
         |____pkg
             |______middleware --> logger.go + security.go
-            |______utils ??
+            |______utils -->date.go
             |______web --> response.go
 
+
+-------------------------------------------------------------------------------------------
+✔️ Run
+-------------------------------------------------------------------------------------------
+      -  go run cmd/server/main.go
+
+      To see the documentation, make sure its running and then go to -> http://localhost:8080/api/v1/swagger/index.html
 
 -------------------------------------------------------------------------------------------
 ✔️ COMMANDS para paquetes y/o librerias
@@ -118,3 +127,8 @@ La aplicación debe ser desarrollada en diseño orientado a paquetes:
       "go.lintTool": "golangci-lint",
       "go.lintFlags": ["--fast"]
       } 
+
+     --------------------------------------------------------------------------------------
+
+      TokenPostman  grupo3 
+

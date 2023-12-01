@@ -6,7 +6,9 @@ import (
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/web"
 	"github.com/gin-gonic/gin"
+
 )
 
 type Controller struct {
@@ -17,7 +19,19 @@ func NewControllerAppointments(service appointments.Service) *Controller {
 	return &Controller{service: service}
 }
 
-// Method HandlerCreate is the handler needed to POST a patient
+// Method HandlerCreate is the handler needed to POST an appointment
+// Appointmes godoc
+// @Summary Create an appointment
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param appointmentRequest body models.Appointment true "Appointment details"
+// @Security ApiKeyAuth
+// @Success 200 {object} web.response "Appointment created"
+// @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
+// @Failure 500 {object} web.errorResponse "Internal server error"
+// @Router /appointments [post]
 func (c *Controller) HandlerCreate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -26,31 +40,46 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		err := ctx.Bind(&appointmentRequest)
 
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "bad request",
-				"error":   err,
-			})
+			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "bad request",
+			// 	"error":   err,
+			// })
 			return
 		}
 
 		appointment, err := c.service.Create(ctx, appointmentRequest)
 		
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error ",
-			})
+			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
+			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			// 	"message": "Internal server error ",
+			// })
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
-			"data":    appointment,
-			"message": "Appointment created",
-		})
+		web.Success(ctx, http.StatusOK, appointment, "Appointment created")
+		// ctx.JSON(http.StatusOK, gin.H{
+		// 	"data":    appointment,
+		// 	"message": "Appointment created",
+		// })
 
 	}
 }
 
 // Method HandlerGetByID is the handler needed to GET a appointment by its Id
+// Appointmes godoc
+// @Summary Get an appointment by ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Security ApiKeyAuth
+// @Success 200 {object} web.response "Appointment found"
+// @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
+// @Failure 500 {object} web.errorResponse "Internal server error"
+// @Router /appointments/{id} [get]
 func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -60,30 +89,45 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		// Convert the string parameter to a int
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "bad request",
-				"error":   err,
-			})
+			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "bad request",
+			// 	"error":   err,
+			// })
 			return
 		}
 
 		// Call the service to get by id
 		appointment, err := c.service.GetByID(ctx, id)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error",
-			})
+			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
+			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			// 	"message": "Internal server error",
+			// })
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
-			"data":    appointment,
-			"message": "Appointment found",
-		})
+		web.Success(ctx, http.StatusOK, appointment, "Appointment found")
+		// ctx.JSON(http.StatusOK, gin.H{
+		// 	"data":    appointment,
+		// 	"message": "Appointment found",
+		// })
 	}
 }
 
 // Method HandlerUpdate is the handler needed to UPDATE a patient by its Id
+// Appointmes godoc
+// @Summary Update an appointment by ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Security ApiKeyAuth
+// @Success 200 {object} web.response "Appointment updated"
+// @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
+// @Failure 500 {object} web.errorResponse "Internal server error"
+// @Router /appointments/{id} [put]
 func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -95,30 +139,34 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		// Convert the string parameter to a int
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "bad request",
-				"error":   err,
-			})
+			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "bad request",
+			// 	"error":   err,
+			// })
 			return
 		}
 
 		if err := ctx.Bind(&appointmentRequest); err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "Bad request",
-				"error":   err.Error(),
-			})
+			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err.Error())
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "Bad request",
+			// 	"error":   err.Error(),
+			// })
 			return
 		}
 
 		// Call the service to update
 		updatedAppointment, err := c.service.Update(ctx, appointmentRequest, id)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error",
-			})
+			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
+			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			// 	"message": "Internal server error",
+			// })
 			return
 		}
 
+		web.Success(ctx, http.StatusOK, updatedAppointment, "Appointment updated")
 		ctx.JSON(http.StatusOK, gin.H{
 			"data":    updatedAppointment,
 			"message": "Appointment updated",
@@ -127,6 +175,18 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 }
 
 // Method HandlerPatch is the handler needed to PATCH a patient by its Id
+// Appointmes godoc
+// @Summary Patch an appointment by ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Security ApiKeyAuth
+// @Success 200 {object} web.response "Appointment partially updated"
+// @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
+// @Failure 500 {object} web.errorResponse "Internal server error"
+// @Router /appointments/{id} [patch]
 func (c *Controller) HandlerPatch() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -136,40 +196,56 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 		// Convert the string parameter to a int
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "bad request",
-				"error":   err,
-			})
+			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "bad request",
+			// 	"error":   err,
+			// })
 			return
 		}
 
 		var appointmentUpdates map[string]interface{}
 		if err := ctx.BindJSON(&appointmentUpdates); err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "Bad request",
-				"error":   err.Error(),
-			})
+			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err.Error())
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "Bad request",
+			// 	"error":   err.Error(),
+			// })
 			return
 		}
 		
 		// Call the service to partially update
 		partiallyUpdatedAppointment, err := c.service.Patch(ctx, appointmentUpdates, id)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error",
-				"error":   err.Error(),
-			})
+			web.Error(ctx, http.StatusInternalServerError, "Internal server error\n%v",err.Error())
+			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			// 	"message": "Internal server error",
+			// 	"error":   err.Error(),
+			// })
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
-			"data":    partiallyUpdatedAppointment,
-			"message": "Appointment partially updated",
-		})
+		web.Success(ctx, http.StatusOK, partiallyUpdatedAppointment, "Appointment partially updated")
+		// ctx.JSON(http.StatusOK, gin.H{
+		// 	"data":    partiallyUpdatedAppointment,
+		// 	"message": "Appointment partially updated",
+		// })
 	}
 }
 
 // Method HandlerDelete is the handler needed to DELETE a patient by its Id
+// Appointmes godoc
+// @Summary Delete an appointment by ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Security ApiKeyAuth
+// @Success 200 {object} web.response "Appointment deleted"
+// @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
+// @Failure 500 {object} web.errorResponse "Internal server error"
+// @Router /appointments/{id} [delete]
 func (c *Controller) HandlerDelete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -179,28 +255,41 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		// Convert the string parameter to a int
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "bad request",
-				"error":   err,
-			})
+			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "bad request",
+			// 	"error":   err,
+			// })
 			return
 		}
 
 		// Call the service to delete
 		err = c.service.Delete(ctx, id)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error",
-			})
+			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
+			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			// 	"message": "Internal server error",
+			// })
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "Appointment deleted",
-		})
+		web.Success(ctx, http.StatusOK, id, "Appointment deleted")
+		// ctx.JSON(http.StatusOK, gin.H{
+		// 	"message": "Appointment deleted",
+		// })
 	}
 }
 
+// Appointmes godoc
+// @Summary Get an appointment by Patient Personal ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Patient ID" Format(int64)
+// @Success 200 {object} web.response "Appointment found"
+// @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 500 {object} web.errorResponse "Internal server error"
+// @Router /appointments/patientId/{id} [get]
 func (c *Controller) HandlerGetByPatientsPersonalID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -209,23 +298,26 @@ func (c *Controller) HandlerGetByPatientsPersonalID() gin.HandlerFunc {
 
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "bad request",
-				"error":   err,
-			})
+			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
+			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			// 	"message": "bad request",
+			// 	"error":   err,
+			// })
 			return
 		}
 
 		appointment, err := c.service.GetByPatientsPersonalID(ctx, id)
 		if err != nil {
-			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-				"message": "Internal server error",
-			})
+			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
+			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			// 	"message": "Internal server error",
+			// })
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
-			"data": appointment,
-		})
+		web.Success(ctx, http.StatusOK, appointment, "Appointment found")
+		// ctx.JSON(http.StatusOK, gin.H{
+		// 	"data": appointment,
+		// })
 	}
 }
