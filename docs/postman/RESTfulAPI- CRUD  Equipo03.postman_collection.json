@@ -28,7 +28,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"last_name\": \"Ryan\",\n    \"first_name\": \"Jack\",\n    \"personal_id\": \"12345\",\n    \"home_address\":{\n        \"street\": \"Su Calle Secreta\",\n        \"number\": 123456,\n        \"city\": \"La Plata\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2015-10-01T00:00:00Z\"\n}\n",
@@ -73,7 +79,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"last_name\": \"Del Ocho\",\n    \"first_name\": \"Chavo\",\n    \"personal_id\": \"1212\",\n    \"home_address\":{\n        \"street\": \"La vecindad\",\n        \"number\": 123456,\n        \"city\": \"El Barrio\",\n        \"province\": \"El mundo\"\n    },\n    \"admission_date\": \"2006-10-01T14:00:00Z\"\n}\n",
@@ -154,7 +166,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"last_name\": \"Ryan\",\n    \"first_name\": \"Jack\",\n    \"personal_id\": \"12345\",\n    \"home_address\":{\n        \"street\": \"Se puso de novio y se mudó\",\n        \"number\": 123456,\n        \"city\": \"La Plata\",\n        \"province\": \"BsAs\"\n    },\n    \"admission_date\": \"2015-10-01T00:00:00Z\"\n}\n",
@@ -200,7 +218,13 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"home_address_street\": \"Se peleó con la pareja y volvió a su casa\"\n}\n\n",
@@ -246,7 +270,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -297,7 +327,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"last_name\": \"Gruñón\",\n    \"first_name\": \"Elmer\",\n    \"professional_license\": \"4444\"\n}\n",
@@ -349,7 +385,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"last_name\": \"Muelitas\",\n    \"first_name\": \"Dr.\",\n    \"professional_license\": \"9999\"\n}\n",
@@ -437,7 +479,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"last_name\": \"Re Gruñón\",\n    \"first_name\": \"Elmer\",\n    \"professional_license\": \"4444\"\n}\n",
@@ -483,7 +531,13 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"first_name\": \"Elmer Pepe\"\n}\n\n",
@@ -529,7 +583,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -580,7 +640,13 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"dentists_professional_license\": \"9999\",\n    \"patients_personal_id\": \"1212\",\n    \"description\": \"limpieza \",\n    \"date_and_time\": \"2024-01-02T15:04:05Z\"\n}\n",
@@ -705,7 +771,13 @@
 					],
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"dentists_professional_license\": \"9999\",\n    \"patients_personal_id\": \"1212\",\n    \"description\": \"Se saca 3 caries + limpieza \",\n    \"date_and_time\": \"2024-01-02T15:04:05Z\"\n}\n",
@@ -751,7 +823,13 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"date_and_time\": \"2023-01-02T15:04:05Z\"\n}\n",
@@ -797,7 +875,13 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "TokenPostman",
+								"value": "grupo3",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
