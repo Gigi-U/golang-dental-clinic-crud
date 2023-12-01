@@ -7,6 +7,7 @@ import (
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
 	"github.com/gin-gonic/gin"
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/web"
 )
 
 type Controller struct {
@@ -24,7 +25,7 @@ func NewControllerAppointments(service appointments.Service) *Controller {
 // @Tags appointment
 // @Accept json
 // @Produce json
-// @Success 200 {object} web.response
+// @Success 200 {object} web.Response
 // @Failure 400 {object} web.errorResponse
 // @Failure 500 {object} web.errorResponse
 // @Router /Appointments [post]
