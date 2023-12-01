@@ -30,7 +30,13 @@ import (
 )
 
 
-//@title EBE3-grupo3
+//@title Final-EBE3-grupo3
+// @version         1.0
+// @description     This is an appointment booking system
+// @termsOfService  https://github.com/Gigi-U/eb3_desafio_Final_grupo03/blob/main/docs/Enunciado_del_desafio.pdf
+
+// @host      localhost:8080
+// @BasePath  /api/v1
 func main() {
 
 	// Loads the environment variables
@@ -114,7 +120,7 @@ func main() {
 func connectDB() *sql.DB {
 	var dbUsername, dbPassword, dbHost, dbPort, dbName string
 	dbUsername = "root"
-	dbPassword = "password" //root
+	dbPassword = "root" //root
 	dbHost = "localhost"
 	dbPort = "3306"
 	dbName = "dental_clinic_team3"

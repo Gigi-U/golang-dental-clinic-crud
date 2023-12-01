@@ -1,15 +1,67 @@
+basePath: /api/v1
+definitions:
+  models.Address:
+    properties:
+      city:
+        type: string
+      number:
+        type: integer
+      province:
+        type: string
+      street:
+        type: string
+    type: object
+  models.Patient:
+    properties:
+      admission_date:
+        type: string
+      first_name:
+        type: string
+      home_address:
+        $ref: '#/definitions/models.Address'
+      id:
+        type: integer
+      last_name:
+        type: string
+      personal_id:
+        description: same as Argentinean DNI
+        type: string
+    type: object
+  web.errorResponse:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  web.response:
+    properties:
+      data: {}
+      message:
+        type: string
+    type: object
+host: localhost:8080
 info:
   contact: {}
-  title: EBE3-grupo3
+  description: This is an appointment booking system
+  termsOfService: https://github.com/Gigi-U/eb3_desafio_Final_grupo03/blob/main/docs/Enunciado_del_desafio.pdf
+  title: Final-EBE3-grupo3
+  version: "1.0"
 paths:
   /appointments:
     post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
       responses: {}
-      summary: create an appointment
+      summary: Create an appointment
       tags:
       - Appointments
   /appointments/{id}:
-    get:
+    delete:
+      consumes:
+      - application/json
       parameters:
       - description: Appointment ID
         format: int64
@@ -17,8 +69,268 @@ paths:
         name: id
         required: true
         type: integer
+      produces:
+      - application/json
       responses: {}
-      summary: Retrieve an appointment by ID
+      summary: Delete an appointmen by Patient ID
       tags:
       - Appointments
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Appointment ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Get an appointmen by Patient ID
+      tags:
+      - Appointments
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Appointment ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Patch an appointmen by Patient ID
+      tags:
+      - Appointments
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Appointment ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Update an appointment by Patient ID
+      tags:
+      - Appointments
+  /appointments/patientId/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Appointment ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Get an appointmen by Patient Personal ID
+      tags:
+      - Appointments
+  /dentists:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Create a Dentist
+      tags:
+      - Dentists
+  /dentists/{id}:
+    delete:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a Dentist by ID
+      tags:
+      - Dentists
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Get a Dentist by ID
+      tags:
+      - Dentists
+    patch:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Patch a Dentist by ID
+      tags:
+      - Dentists
+    put:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Update a Dentist by ID
+      tags:
+      - Dentists
+  /patients:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Patient details
+        in: body
+        name: patientRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Patient created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Create a Patient
+      tags:
+      - Patients
+  /patients/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Patient deleted
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Delete a Patient by Id
+      tags:
+      - Patients
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Patient found
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Get a Patient by Id
+      tags:
+      - Patients
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Patient partially updated
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Patch a Patient by Id
+      tags:
+      - Patients
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Patient updated
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Update a Patient by Id
+      tags:
+      - Patients
 swagger: "2.0"

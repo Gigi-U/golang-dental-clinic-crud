@@ -10,6 +10,7 @@ import (
 
 type response struct {
 	Data interface{} `json:"data"`
+	Message string   `json:"message"`
 }
 
 type errorResponse struct {
@@ -22,11 +23,11 @@ func Response(c *gin.Context, status int, data interface{}) {
 	c.JSON(status, data)
 }
 
-func Success(c *gin.Context, status int, data interface{}) {
-	Response(c, status, response{Data: data})
+func Success(c *gin.Context, status int, data interface{}, message string) {
+	Response(c, status, response{Data: data, Message: message})
 }
 
-// NewErrorf creates a new error with the given status code and the message
+// NewError creates an error with the given status code and the message
 // formatted according to args and format.
 func Error(c *gin.Context, status int, format string, args ...interface{}) {
 	err := errorResponse{

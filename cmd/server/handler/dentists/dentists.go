@@ -6,6 +6,7 @@ import (
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/dentists"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/web"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +19,12 @@ func NewControllerDentists(service dentists.Service) *Controller {
 }
 
 // Method HandlerCreate is the handler needed to POST a dentist
+// Dentists godoc
+// @Summary Create a Dentist
+// @Tags Dentists
+// @Accept json
+// @Produce json
+// @Router /dentists [post]
 func (c *Controller) HandlerCreate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -26,6 +33,7 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		err := ctx.Bind(&dentistRequest)
 
 		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err)
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"message": "bad request",
 				"error":   err,
@@ -50,6 +58,12 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 }
 
 // Method HandlerGetByID is the handler needed to GET a dentist by its Id
+// Dentists godoc
+// @Summary Get a Dentist by ID
+// @Tags Dentists
+// @Accept json
+// @Produce json
+// @Router /dentists/{id} [get]
 func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -83,6 +97,12 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 }
 
 // Method HandlerUpdate is the handler needed to UPDATE a dentist by its Id
+// Dentists godoc
+// @Summary Update a Dentist by ID
+// @Tags Dentists
+// @Accept json
+// @Produce json
+// @Router /dentists/{id} [put]
 func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -126,6 +146,12 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 }
 
 // Method HandlerPatch is the handler needed to PATCH a dentist by its Id
+// Dentists godoc
+// @Summary Patch a Dentist by ID
+// @Tags Dentists
+// @Accept json
+// @Produce json
+// @Router /dentists/{id} [patch]
 func (c *Controller) HandlerPatch() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -168,6 +194,12 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 }
 
 // Method HandlerDelete is the handler needed to DELETE a dentist by its Id
+// Dentists godoc
+// @Summary Delete a Dentist by ID
+// @Tags Dentists
+// @Accept json
+// @Produce json
+// @Router /dentists/{id} [delete]
 func (c *Controller) HandlerDelete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 

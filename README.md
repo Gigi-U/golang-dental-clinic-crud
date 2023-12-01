@@ -92,6 +92,13 @@ La aplicación debe ser desarrollada en diseño orientado a paquetes:
 
 
 -------------------------------------------------------------------------------------------
+✔️ Run
+-------------------------------------------------------------------------------------------
+      -  go run cmd/server/main.go
+
+      To see the documentation, make sure its running and then go to -> http://localhost:8080/api/v1/swagger/index.html
+
+-------------------------------------------------------------------------------------------
 ✔️ COMMANDS para paquetes y/o librerias
 -------------------------------------------------------------------------------------------
       -   repository clone --> git clone git@github.com:Gigi-U/eb3_desafio_Final_grupo03.git

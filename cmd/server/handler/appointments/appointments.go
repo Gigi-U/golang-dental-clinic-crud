@@ -6,7 +6,9 @@ import (
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
+	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/web"
 	"github.com/gin-gonic/gin"
+
 )
 
 type Controller struct {
@@ -18,8 +20,11 @@ func NewControllerAppointments(service appointments.Service) *Controller {
 }
 
 // Method HandlerCreate is the handler needed to POST a patient
-// @Summary create an appointment 
+// Appointmes godoc
+// @Summary Create an appointment
 // @Tags Appointments
+// @Accept json
+// @Produce json
 // @Router /appointments [post]
 func (c *Controller) HandlerCreate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
@@ -29,6 +34,7 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		err := ctx.Bind(&appointmentRequest)
 
 		if err != nil {
+			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err)
 			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"message": "bad request",
 				"error":   err,
@@ -54,8 +60,11 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 }
 
 // Method HandlerGetByID is the handler needed to GET a appointment by its Id
-// @Summary Retrieve an appointment by ID
+// Appointmes godoc
+// @Summary Get an appointmen by Patient ID
 // @Tags Appointments
+// @Accept json
+// @Produce json
 // @Param id path int true "Appointment ID" Format(int64)
 // @Router /appointments/{id} [get]
 func (c *Controller) HandlerGetByID() gin.HandlerFunc {
@@ -91,6 +100,13 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 }
 
 // Method HandlerUpdate is the handler needed to UPDATE a patient by its Id
+// Appointmes godoc
+// @Summary Update an appointment by Patient ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Router /appointments/{id} [put]
 func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -134,6 +150,13 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 }
 
 // Method HandlerPatch is the handler needed to PATCH a patient by its Id
+// Appointmes godoc
+// @Summary Patch an appointmen by Patient ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Router /appointments/{id} [patch]
 func (c *Controller) HandlerPatch() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -177,6 +200,13 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 }
 
 // Method HandlerDelete is the handler needed to DELETE a patient by its Id
+// Appointmes godoc
+// @Summary Delete an appointmen by Patient ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Router /appointments/{id} [delete]
 func (c *Controller) HandlerDelete() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
@@ -208,7 +238,13 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 	}
 }
 
-
+// Appointmes godoc
+// @Summary Get an appointmen by Patient Personal ID
+// @Tags Appointments
+// @Accept json
+// @Produce json
+// @Param id path int true "Appointment ID" Format(int64)
+// @Router /appointments/patientId/{id} [get]
 func (c *Controller) HandlerGetByPatientsPersonalID() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 
