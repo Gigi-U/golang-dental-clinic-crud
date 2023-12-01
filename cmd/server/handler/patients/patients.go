@@ -26,8 +26,10 @@ func NewControllerPatients(service patients.Service) *Controller {
 // @Accept json
 // @Produce json
 // @Param patientRequest body models.Patient true "Patient details"
+// @Security ApiKeyAuth
 // @Success 200 {object} web.response "Patient created"
 // @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
 // @Failure 500 {object} web.errorResponse "Internal server error"
 // @Router /patients [post]
 func (c *Controller) HandlerCreate() gin.HandlerFunc {
@@ -127,8 +129,10 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Patient ID" Format(int64) Example(1) // The ID of the patient to delete
+// @Security ApiKeyAuth
 // @Success 200 {object} web.response "Patient updated"
 // @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
 // @Failure 500 {object} web.errorResponse "Internal server error"
 // @Router /patients/{id} [put]
 func (c *Controller) HandlerUpdate() gin.HandlerFunc {
@@ -184,8 +188,10 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Patient ID" Format(int64) Example(1) // The ID of the patient to delete
+// @Security ApiKeyAuth
 // @Success 200 {object} web.response "Patient partially updated"
 // @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
 // @Failure 500 {object} web.errorResponse "Internal server error"
 // @Router /patients/{id} [patch]
 func (c *Controller) HandlerPatch() gin.HandlerFunc {
@@ -239,9 +245,11 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 // @Tags Patients
 // @Accept json
 // @Produce json
+// @Security ApiKeyAuth
 // @Param id path int true "Patient ID" Format(int64) Example(1) // The ID of the patient to delete
 // @Success 200 {object} web.response "Patient deleted"
 // @Failure 400 {object} web.errorResponse "Bad request"
+// @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
 // @Failure 500 {object} web.errorResponse "Internal server error"
 // @Router /patients/{id} [delete]
 func (c *Controller) HandlerDelete() gin.HandlerFunc {

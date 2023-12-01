@@ -11,6 +11,31 @@ definitions:
       street:
         type: string
     type: object
+  models.Appointment:
+    properties:
+      date_and_time:
+        type: string
+      dentists_professional_license:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      patients_personal_id:
+        type: string
+    type: object
+  models.Dentist:
+    properties:
+      first_name:
+        type: string
+      id:
+        type: integer
+      last_name:
+        type: string
+      professional_license:
+        description: same as Matrícula
+        type: string
+    type: object
   models.Patient:
     properties:
       admission_date:
@@ -52,9 +77,34 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Appointment details
+        in: body
+        name: appointmentRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.Appointment'
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: Appointment created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Create an appointment
       tags:
       - Appointments
@@ -71,8 +121,26 @@ paths:
         type: integer
       produces:
       - application/json
-      responses: {}
-      summary: Delete an appointmen by Patient ID
+      responses:
+        "200":
+          description: Appointment deleted
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete an appointment by ID
       tags:
       - Appointments
     get:
@@ -87,8 +155,26 @@ paths:
         type: integer
       produces:
       - application/json
-      responses: {}
-      summary: Get an appointmen by Patient ID
+      responses:
+        "200":
+          description: Appointment found
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get an appointment by ID
       tags:
       - Appointments
     patch:
@@ -103,8 +189,26 @@ paths:
         type: integer
       produces:
       - application/json
-      responses: {}
-      summary: Patch an appointmen by Patient ID
+      responses:
+        "200":
+          description: Appointment partially updated
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Patch an appointment by ID
       tags:
       - Appointments
     put:
@@ -119,8 +223,26 @@ paths:
         type: integer
       produces:
       - application/json
-      responses: {}
-      summary: Update an appointment by Patient ID
+      responses:
+        "200":
+          description: Appointment updated
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update an appointment by ID
       tags:
       - Appointments
   /appointments/patientId/{id}:
@@ -128,7 +250,7 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: Appointment ID
+      - description: Patient ID
         format: int64
         in: path
         name: id
@@ -136,17 +258,54 @@ paths:
         type: integer
       produces:
       - application/json
-      responses: {}
-      summary: Get an appointmen by Patient Personal ID
+      responses:
+        "200":
+          description: Appointment found
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Get an appointment by Patient Personal ID
       tags:
       - Appointments
   /dentists:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Dentist details
+        in: body
+        name: dentistRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.Dentist'
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: Dentist created
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Create a Dentist
       tags:
       - Dentists
@@ -154,36 +313,134 @@ paths:
     delete:
       consumes:
       - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: Dentist deleted
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Delete a Dentist by ID
       tags:
       - Dentists
     get:
       consumes:
       - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: Dentist found
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
       summary: Get a Dentist by ID
       tags:
       - Dentists
     patch:
       consumes:
       - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: Dentist partially updated
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Patch a Dentist by ID
       tags:
       - Dentists
     put:
       consumes:
       - application/json
+      parameters:
+      - description: Patient ID
+        example: 1
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: Dentist updated
+          schema:
+            $ref: '#/definitions/web.response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Update a Dentist by ID
       tags:
       - Dentists
@@ -209,10 +466,16 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
         "500":
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Create a Patient
       tags:
       - Patients
@@ -239,10 +502,16 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
         "500":
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Delete a Patient by Id
       tags:
       - Patients
@@ -297,10 +566,16 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
         "500":
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Patch a Patient by Id
       tags:
       - Patients
@@ -326,10 +601,16 @@ paths:
           description: Bad request
           schema:
             $ref: '#/definitions/web.errorResponse'
+        "401":
+          description: 'Unauthorized: Invalid or missing API key'
+          schema:
+            $ref: '#/definitions/web.errorResponse'
         "500":
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
+      security:
+      - ApiKeyAuth: []
       summary: Update a Patient by Id
       tags:
       - Patients
