@@ -9,7 +9,6 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "https://github.com/Gigi-U/eb3_desafio_Final_grupo03#readme",
         "contact": {},
         "version": "{{.Version}}"
     },
@@ -49,12 +48,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
+	Version:          "",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "EBE3-grupo3",
-	Description:      "This Api handles an odontological center",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -23,14 +23,14 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	_ "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/docs"
 )
 
 
 //@title EBE3-grupo3
-//@version 1.0
-//@description This Api handles an odontological center
-//@termsOfService https://github.com/Gigi-U/eb3_desafio_Final_grupo03#readme
-
 func main() {
 
 	// Loads the environment variables
@@ -64,6 +64,8 @@ func main() {
 	engine := gin.Default()
 	engine.Use(gin.Recovery())
 	engine.Use(middleware.Logger())
+	//add swagger
+	engine.GET("/api/v1/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Router group´s
 	group := engine.Group("/api/v1")

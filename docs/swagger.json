@@ -1,11 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This Api handles an odontological center",
         "title": "EBE3-grupo3",
-        "termsOfService": "https://github.com/Gigi-U/eb3_desafio_Final_grupo03#readme",
-        "contact": {},
-        "version": "1.0"
+        "contact": {}
     },
     "paths": {
         "/appointments": {
