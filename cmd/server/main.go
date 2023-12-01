@@ -4,31 +4,25 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
-	handlerAppointments "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/appointments"
-	handlerPing "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/ping"
+
+	router "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/router"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/middleware"
-
-	handlerPatients "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/patients"
-
-	handlerDentists "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/dentists"
-
-	"github.com/joho/godotenv"
-
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
-
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/dentists"
-
-	_ "github.com/go-sql-driver/mysql"
-
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/docs"
+	
 )
 
+const (
+	port = "8080"
+)
 
 //@title Final-EBE3-grupo3
 // @version         1.0
@@ -39,6 +33,13 @@ import (
 // @BasePath  /api/v1
 func main() {
 
+	defer func() {
+		if err := recover(); err != nil {
+			log.Fatal(err)
+			os.Exit(1)
+		}
+	}()
+	
 	// Loads the environment variables
 	err := godotenv.Load()
 	if err != nil {
@@ -48,73 +49,31 @@ func main() {
 	// Loads the MySQL database
 	db := connectDB()
 
-	// Pings´ Controller --------------------------
-	controllerPing := handlerPing.NewControllerPing()
-
-	// patient´ Repository | patients´ Service | patients´ Controller --------------------------
-	patientsRepository := patients.NewMySqlRepository(db)
-	patientsService := patients.NewServicePatients(patientsRepository)
-	patientsController := handlerPatients.NewControllerPatients(patientsService)
-
-	// dentists´ Repository | dentists´ Service | dentists´ Controller --------------------------
-	dentistsRepository := dentists.NewMySqlRepository(db)
-	dentistsService := dentists.NewServiceDentists(dentistsRepository)
-	dentistsController := handlerDentists.NewControllerDentists(dentistsService)
-
-	// appointments´ Repository | appointments´ Service | appointments´ Controller ---------------------------------
-
-	appointmentsRepository := appointments.NewMySqlRepository(db)
-	appointmentsService := appointments.NewServiceAppointments(appointmentsRepository)
-	appoitmentsController := handlerAppointments.NewControllerAppointments(appointmentsService)
-
-	engine := gin.Default()
-	engine.Use(gin.Recovery())
-	engine.Use(middleware.Logger())
+	router:=gin.New()
+	router.Use(gin.Recovery())
+	router.Use(middleware.Logger())
 	//add swagger
-	engine.GET("/api/v1/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/api/v1/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	// Router group´s
-	group := engine.Group("/api/v1")
-	{
-		group.GET("/ping", controllerPing.HandlerPing())
-		// Group Patients-------------------------------------------------------------------
-		groupPatients := group.Group("/patients")
-		{
-			groupPatients.POST("", middleware.Authenticate(), patientsController.HandlerCreate())
-			groupPatients.GET("/:id", patientsController.HandlerGetByID())
-			groupPatients.PUT("/:id", middleware.Authenticate(), patientsController.HandlerUpdate())
-			groupPatients.PATCH("/:id", middleware.Authenticate(), patientsController.HandlerPatch())
-			groupPatients.DELETE("/:id", middleware.Authenticate(), patientsController.HandlerDelete())
-		}
+	runApp(db, router)
 
-		// Group Dentists-------------------------------------------------------------------
-		groupDentists := group.Group("/dentists")
-		{
-			groupDentists.POST("", middleware.Authenticate(),dentistsController.HandlerCreate())
-			groupDentists.GET("/:id", dentistsController.HandlerGetByID())
-			groupDentists.PUT("/:id", middleware.Authenticate(), dentistsController.HandlerUpdate())
-			groupDentists.PATCH("/:id", middleware.Authenticate(), dentistsController.HandlerPatch())
-			groupDentists.DELETE("/:id", middleware.Authenticate(), dentistsController.HandlerDelete())
-		}
+	defer db.Close()
 
-		// Group Appointments-------------------------------------------------------------------
-		groupAppointments := group.Group("/appointments")
-		{
-			groupAppointments.POST("", middleware.Authenticate(), appoitmentsController.HandlerCreate())
-			groupAppointments.GET("/:id", appoitmentsController.HandlerGetByID())
-			groupAppointments.PUT("/:id", middleware.Authenticate(), appoitmentsController.HandlerUpdate())
-			groupAppointments.PATCH("/:id", middleware.Authenticate(), appoitmentsController.HandlerPatch())
-			groupAppointments.DELETE("/:id", middleware.Authenticate(), appoitmentsController.HandlerDelete())
-			groupAppointments.GET("/patient/:Patients_personal_id", appoitmentsController.HandlerGetByPatientsPersonalID())
-		}
 
-	}
-	// if engine runner fails , it stops all
-	if err := engine.Run(":8080"); err != nil {
+}
+
+func runApp(db *sql.DB, engine *gin.Engine) {
+	// Run the application
+	router := router.NewRouter(engine, db)
+	// Map all routes
+	router.MapRoutes()
+	 // if engine runner fails , it stops all
+	if err := engine.Run(fmt.Sprintf(":%s", port)); err != nil {
 		log.Fatal(err)
 	}
 
 }
+
 
 // ConnectDb is a function that connects to the MySQL database
 func connectDB() *sql.DB {
