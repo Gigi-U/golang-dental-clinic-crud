@@ -19,7 +19,7 @@ var (
 type repository struct {
 	db *sql.DB
 }
-
+// NewMySqlRepository creates a new MySQL repository for dentists.
 func NewMySqlRepository(db *sql.DB) Repository {
 	return &repository{db: db}
 }
@@ -30,9 +30,8 @@ func (r *repository) Create(ctx context.Context, dentist models.Dentist) (models
 	if err != nil {
 		return models.Dentist{}, ErrPrepareStatement
 	}
-
 	defer statement.Close()
-
+	// Execute the SQL statement to insert a new dentist.
 	result, err := statement.Exec(
 		dentist.LastName,
 		dentist.FirstName,
@@ -42,7 +41,7 @@ func (r *repository) Create(ctx context.Context, dentist models.Dentist) (models
 	if err != nil {
 		return models.Dentist{}, ErrExecStatement
 	}
-
+	// Get the last inserted ID.
 	lastId, err := result.LastInsertId()
 	if err != nil {
 		return models.Dentist{}, ErrLastInsertedId
@@ -56,11 +55,11 @@ func (r *repository) Create(ctx context.Context, dentist models.Dentist) (models
 
 // Method GetByID - gets a Dentist by its Id
 func (r *repository) GetByID(ctx context.Context, id int) (models.Dentist, error) {
-
+	// Query the database to retrieve a dentist by ID.
 	row := r.db.QueryRowContext(ctx, QueryGetDentistById, id)
 
 	var dentist models.Dentist
-
+	// Scan the database row into the dentist object.
 	err := row.Scan(
 		&dentist.Id,
 		&dentist.LastName,
@@ -82,13 +81,13 @@ func (r *repository) GetByID(ctx context.Context, id int) (models.Dentist, error
 
 // Method Update - updates a Dentist, getting Dentist by Id
 func (r *repository) Update(ctx context.Context, dentist models.Dentist, id int) (models.Dentist, error) {
-
+	// Prepare the SQL statement for updating a dentist.
 	statement, err := r.db.Prepare(QueryUpdateDentistById)
 	if err != nil {
 		return models.Dentist{}, ErrPrepareStatement
 	}
 	defer statement.Close()
-
+	// Execute the SQL statement to update a dentist.
 	result, err := statement.Exec(
 		dentist.LastName,
 		dentist.FirstName,
@@ -98,7 +97,7 @@ func (r *repository) Update(ctx context.Context, dentist models.Dentist, id int)
 	if err != nil {
 		return models.Dentist{}, ErrExecStatement
 	}
-
+	// Check the number of affected rows.
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return models.Dentist{}, err
@@ -106,25 +105,25 @@ func (r *repository) Update(ctx context.Context, dentist models.Dentist, id int)
 	if rowsAffected == 0 {
 		return models.Dentist{}, errors.New("no rows updated")
 	}
-
+	// Update the dentist object with the provided ID.
 	dentist.Id = id
 	return dentist, nil
 }
 
 // Method Delete - deletes a Dentist, getting Dentist by Id
 func (r *repository) Delete(ctx context.Context, id int) error {
-
+	// Prepare the SQL statement for deleting a dentist by ID.
 	statement, err := r.db.Prepare(QueryDeleteDentistById)
 	if err != nil {
 		return ErrPrepareStatement
 	}
 	defer statement.Close()
-
+	// Execute the SQL statement to delete a dentist.
 	result, err := statement.Exec(id)
 	if err != nil {
 		return ErrExecStatement
 	}
-
+	// Check the number of affected rows.
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return err
@@ -137,17 +136,13 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 }
 
 // Method Patch - partially updates Dentists info, getting Dentist by Id
-
 func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Dentist, error) {
 	// Dynamically build the SET clause based on non-null fields in the map
 	setClause, params := generatePatchSetClauseFromMap(updates)
-
 	// Builds the entire query
 	query := QueryPatchDentistById + setClause + " WHERE id=?"
-
 	// Adds Id to the param
 	params = append(params, id)
-
 	// prepares ans executes the SQL statement.
 	statement, err := r.db.Prepare(query)
 	if err != nil {
@@ -159,7 +154,7 @@ func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, 
 	if err != nil {
 		return models.Dentist{}, fmt.Errorf("error executing statement for Patch: %v", err)
 	}
-
+	// Check the number of affected rows.
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return models.Dentist{}, fmt.Errorf("error getting rows affected for Patch: %v", err)
@@ -186,7 +181,6 @@ func generatePatchSetClauseFromMap(updates map[string]interface{}) (string, []in
 		setClause += fieldName + "=?, "
 		params = append(params, value)
 	}
-
 	// Removes the trailing comma and space
 	setClause = setClause[:len(setClause)-2]
 

@@ -1,6 +1,6 @@
 package models
 
-// Dentist is a structure for a patient
+// Dentist is a structure representing a Dentist
 type Dentist struct {
 	Id                  int    `json:"id"`
 	LastName            string `json:"last_name"`

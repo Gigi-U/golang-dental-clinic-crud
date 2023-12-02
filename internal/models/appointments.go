@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-// Patient is a structure for a appointment
+// Appointment is a structure representing an appointment.
 type Appointment struct {
 	Id                            int       `json:"id"`
 	Dentists_professional_license string    `json:"dentists_professional_license"`

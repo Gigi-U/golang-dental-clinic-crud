@@ -67,7 +67,7 @@ func (r *router) buildPatienttRoutes() {
 	}
 
 }
-
+// buildDentistRoutes maps all routes for the dentist domain.
 func (r *router) buildDentistRoutes() {
 	// dentists´ Repository | dentists´ Service | dentists´ Controller --------------------------
 	dentistsRepository := dentists.NewMySqlRepository(r.db)
@@ -83,10 +83,9 @@ func (r *router) buildDentistRoutes() {
 		groupDentists.DELETE("/:id", middleware.Authenticate(), dentistsController.HandlerDelete())
 	}
 }
-
+// buildAppointmentRoutes maps all routes for the appointment domain.
 func (r *router) buildAppointmentRoutes() {
 	// appointments´ Repository | appointments´ Service | appointments´ Controller ---------------------------------
-
 	appointmentsRepository := appointments.NewMySqlRepository(r.db)
 	appointmentsService := appointments.NewServiceAppointments(appointmentsRepository)
 	appoitmentsController := handlerAppointments.NewControllerAppointments(appointmentsService)

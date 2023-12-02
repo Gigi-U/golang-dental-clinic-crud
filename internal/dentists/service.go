@@ -6,7 +6,7 @@ import (
 
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
 )
-
+// Service is an interface defining the methods for dentist operations.
 type Service interface {
 	Create(ctx context.Context, dentist models.Dentist) (models.Dentist, error)
 	GetByID(ctx context.Context, id int) (models.Dentist, error)
@@ -14,16 +14,16 @@ type Service interface {
 	Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Dentist, error)
 	Delete(ctx context.Context, id int) error
 }
-
+// service is a struct implementing the Service interface.
 type service struct {
 	repository Repository
 }
-
+// NewServiceDentists creates a new dentist service with the provided repository.
 func NewServiceDentists(repository Repository) Service {
 	return &service{repository: repository}
 }
 
-// Method Create
+// Method Create - Creates a new dentist.
 func (s *service) Create(ctx context.Context, dentist models.Dentist) (models.Dentist, error) {
 	dentist, err := s.repository.Create(ctx, dentist)
 	if err != nil {
@@ -34,7 +34,7 @@ func (s *service) Create(ctx context.Context, dentist models.Dentist) (models.De
 	return dentist, nil
 }
 
-// Method GetByID
+// Method GetByID - Gets a dentist by ID.
 func (s *service) GetByID(ctx context.Context, id int) (models.Dentist, error) {
 	dentist, err := s.repository.GetByID(ctx, id)
 	if err != nil {
@@ -45,7 +45,7 @@ func (s *service) GetByID(ctx context.Context, id int) (models.Dentist, error) {
 	return dentist, nil
 }
 
-// Method Update
+// Method Update - Updates a dentist by ID.
 func (s *service) Update(ctx context.Context, dentist models.Dentist, id int) (models.Dentist, error) {
 	dentist, err := s.repository.Update(ctx, dentist, id)
 	if err != nil {
@@ -56,7 +56,7 @@ func (s *service) Update(ctx context.Context, dentist models.Dentist, id int) (m
 	return dentist, nil
 }
 
-// Method Delete ...
+// Method Delete - Deletes a dentist by ID.
 func (s *service) Delete(ctx context.Context, id int) error {
 	err := s.repository.Delete(ctx, id)
 	if err != nil {
@@ -67,23 +67,23 @@ func (s *service) Delete(ctx context.Context, id int) error {
 	return nil
 }
 
-// Method Patch
+// Method Patch - Partially updates a dentist by ID.
 func (s *service) Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Dentist, error) {
 	existingDentist, err := s.repository.GetByID(ctx, id)
 	if err != nil {
 		return models.Dentist{}, err
 	}
-
+	// Create a map from the existing dentist's fields.
 	existingDentistMap := map[string]interface{}{
 		"last_name":            existingDentist.LastName,
 		"first_name":           existingDentist.FirstName,
 		"professional_license": existingDentist.ProfessionalLicense,
 	}
 
-	// Applies partial updates
+	// Apply partial updates to the map.
 	applyPartialUpdates(existingDentistMap, updates)
 
-	// Calls the repository with the updated map
+	// Call the repository to patch the dentist with the updated map.
 	updatedDentist, err := s.repository.Patch(ctx, existingDentistMap, id)
 	if err != nil {
 		return models.Dentist{}, err
@@ -91,7 +91,7 @@ func (s *service) Patch(ctx context.Context, updates map[string]interface{}, id 
 
 	return updatedDentist, nil
 }
-
+// applyPartialUpdates applies partial updates to the existing dentist map.
 func applyPartialUpdates(existingDentist map[string]interface{}, updates map[string]interface{}) {
 	if updates["last_name"] != nil {
 		existingDentist["last_name"] = updates["last_name"]

@@ -14,16 +14,14 @@ var (
 	ErrExecStatement    = errors.New("error exec statement")
 	ErrLastInsertedId   = errors.New("error last inserted id")
 )
-
 // repository is a Struct that brings me all patients from the db
 type repository struct {
 	db *sql.DB
 }
-
+// NewMySqlRepository creates a new instance of the MySQL repository for patients.
 func NewMySqlRepository(db *sql.DB) Repository {
 	return &repository{db: db}
 }
-
 // Method Create - Creates a Patient
 func (r *repository) Create(ctx context.Context, patient models.Patient) (models.Patient, error) {
 	statement, err := r.db.Prepare(QueryInsertPatient)
@@ -91,7 +89,7 @@ func (r *repository) GetByID(ctx context.Context, id int) (models.Patient, error
 	return patient, nil
 }
 
-// Method Update - updates a Patient, getting Patient by Id
+// Method Update - updates a Patient by its Id
 func (r *repository) Update(ctx context.Context, patient models.Patient, id int) (models.Patient, error) {
 
 	statement, err := r.db.Prepare(QueryUpdatePatientById)
@@ -127,7 +125,7 @@ func (r *repository) Update(ctx context.Context, patient models.Patient, id int)
 	return patient, nil
 }
 
-// Method Delete - deletes a Patient, getting Patient by Id
+// Method Delete - deletes a Patient by its Id
 func (r *repository) Delete(ctx context.Context, id int) error {
 
 	statement, err := r.db.Prepare(QueryDeletePatientById)
@@ -152,18 +150,14 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 	return nil
 }
 
-// Method Patch - partially updates Patients info, getting Patient by Id
-
+// Method Patch - partially updates Patients info by its Id
 func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Patient, error) {
 	// Dynamically build the SET clause based on non-null fields in the map
 	setClause, params := generatePatchSetClauseFromMap(updates)
-
 	// Builds the entire query
 	query := QueryPatchPatientById + setClause + " WHERE id=?"
-
 	// Adds Id to the param
 	params = append(params, id)
-
 	// prepares ans executes the SQL statement.
 	statement, err := r.db.Prepare(query)
 	if err != nil {
@@ -183,7 +177,6 @@ func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, 
 	if rowsAffected == 0 {
 		return models.Patient{}, errors.New("no rows updated")
 	}
-
 	// Retrieve the updated patient from the database
 	updatedPatient, err := r.GetByID(ctx, id)
 	if err != nil {
@@ -202,7 +195,6 @@ func generatePatchSetClauseFromMap(updates map[string]interface{}) (string, []in
 		setClause += fieldName + "=?, "
 		params = append(params, value)
 	}
-
 	// Removes the trailing comma and space
 	setClause = setClause[:len(setClause)-2]
 

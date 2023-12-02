@@ -16,15 +16,14 @@ var (
 	ErrLastInsertedId   = errors.New("error last inserted id")
 )
 
-// repository is a Struct that brings me all patients from the db
+// repository is a Struct that brings me all appointmens from the db
 type repository struct {
 	db *sql.DB
 }
-
+// NewMySqlRepository creates a new MySQL repository for appointments.
 func NewMySqlRepository(db *sql.DB) Repository {
 	return &repository{db: db}
 }
-
 // Method Create - Creates a Appointment
 func (r *repository) Create(ctx context.Context, appointment models.Appointment) (models.Appointment, error) {
 	statement, err := r.db.Prepare(QueryInsertAppointment)
@@ -56,8 +55,7 @@ func (r *repository) Create(ctx context.Context, appointment models.Appointment)
 	return appointment, nil
 
 }
-
-// Method GetByID - gets a appointment by its Id
+// Method GetByID - retrieves an appointment by its Id
 func (r *repository) GetByID(ctx context.Context, id int) (models.Appointment, error) {
 
 	row := r.db.QueryRowContext(ctx, QueryGetAppointmentById, id)
@@ -84,7 +82,7 @@ func (r *repository) GetByID(ctx context.Context, id int) (models.Appointment, e
 	return appointment, nil
 }
 
-// Method Update - updates a Patient, getting Patient by Id
+// Update modifies an existing appointment in the data store based on its unique identifier.
 func (r *repository) Update(ctx context.Context, appointment models.Appointment, id int) (models.Appointment, error) {
 
 	statement, err := r.db.Prepare(QueryUpdateAppointmentById)
@@ -116,7 +114,7 @@ func (r *repository) Update(ctx context.Context, appointment models.Appointment,
 	return appointment, nil
 }
 
-// Method Delete - deletes a Patient, getting Patient by Id
+// Method Delete - deletes an appointment by its Id
 func (r *repository) Delete(ctx context.Context, id int) error {
 
 	statement, err := r.db.Prepare(QueryDeleteAppointmentById)
@@ -140,7 +138,7 @@ func (r *repository) Delete(ctx context.Context, id int) error {
 
 	return nil
 }
-
+// GetByPatientsPersonalID retrieves an appointment by the patient's personal identifier from the data store.
 func (r *repository) GetByPatientsPersonalID(ctx context.Context, id int) (models.Appointment, error) {
 
 	row := r.db.QueryRowContext(ctx, QueryGetAppointmentByPatientsId, id)
@@ -168,14 +166,11 @@ func (r *repository) GetByPatientsPersonalID(ctx context.Context, id int) (model
 }
 
 // Method Patch - partially updates Appointment info, getting Patient by Id
-
 func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Appointment, error) {
 	// Dynamically build the SET clause based on non-null fields in the map
 	setClause, params := generatePatchSetClauseFromMap(updates)
-
 	// Builds the entire query
 	query := QueryPatchAppointmentById + setClause + " WHERE id=?"
-
 	// Adds Id to the param
 	params = append(params, id)
 
@@ -190,7 +185,6 @@ func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, 
 	if err != nil {
 		return models.Appointment{}, fmt.Errorf("error executing statement for Patch: %v", err)
 	}
-
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return models.Appointment{}, fmt.Errorf("error getting rows affected for Patch: %v", err)
@@ -198,13 +192,11 @@ func (r *repository) Patch(ctx context.Context, updates map[string]interface{}, 
 	if rowsAffected == 0 {
 		return models.Appointment{}, errors.New("No rows updated. If you changed the appointment date please check its format ")
 	}
-
 	// Retrieve the updated patient from the database
 	updatedAppointment, err := r.GetByID(ctx, id)
 	if err != nil {
 		return models.Appointment{}, fmt.Errorf("error getting updated patient for Patch: %v", err)
 	}
-
 	return updatedAppointment, nil
 }
 

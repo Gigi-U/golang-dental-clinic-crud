@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-// Patient is a structure for a patient
+// Patient is a structure representing a patient
 type Patient struct {
 	Id          			int    		`json:"id"`
 	LastName    			string    	`json:"last_name"`
@@ -12,7 +12,7 @@ type Patient struct {
 	AdmissionDate   		time.Time  	`json:"admission_date"`
 }
 
-// Address is a structure for a patients address
+// Address is a structure representing a Patients´ address
  type Address struct {
 	Street  	string	`json:"street"`
 	Number 		int		`json:"number"`

@@ -9,7 +9,7 @@ import (
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
 	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/utils"
 )
-
+// Service is an interface defining methods for appointment-related operations.
 type Service interface {
 	Create(ctx context.Context, appointment models.Appointment) (models.Appointment, error)
 	GetByID(ctx context.Context, id int) (models.Appointment, error)
@@ -18,16 +18,16 @@ type Service interface {
 	Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Appointment, error)
 	GetByPatientsPersonalID(ctx context.Context, patients_personal_id int) (models.Appointment, error)
 }
-
+// service is an implementation of the Service interface.
 type service struct {
 	repository Repository
 }
-
+// NewServiceAppointments creates a new appointment service with the provided repository.
 func NewServiceAppointments(repository Repository) Service {
 	return &service{repository: repository}
 }
 
-// Method Create
+// Method Create adds a new appointment.
 func (s *service) Create(ctx context.Context, appointment models.Appointment) (models.Appointment, error) {
 
 	appointment, err := s.repository.Create(ctx, appointment)
@@ -39,7 +39,7 @@ func (s *service) Create(ctx context.Context, appointment models.Appointment) (m
 	return appointment, nil
 }
 
-// Method GetByID
+// Method GetByID retrieves an appointment by its unique identifier.
 func (s *service) GetByID(ctx context.Context, id int) (models.Appointment, error) {
 	appointment, err := s.repository.GetByID(ctx, id)
 	if err != nil {
@@ -50,7 +50,7 @@ func (s *service) GetByID(ctx context.Context, id int) (models.Appointment, erro
 	return appointment, nil
 }
 
-// Method Update
+// Method Update modifies an existing appointment based on its unique identifier.
 func (s *service) Update(ctx context.Context, appointment models.Appointment, id int) (models.Appointment, error) {
 	
 	appointment, err := s.repository.Update(ctx, appointment, id)
@@ -62,7 +62,7 @@ func (s *service) Update(ctx context.Context, appointment models.Appointment, id
 	return appointment, nil
 }
 
-// Method Delete 
+// Method Delete removes an appointment based on its unique identifier
 func (s *service) Delete(ctx context.Context, id int) error {
 	err := s.repository.Delete(ctx, id)
 	if err != nil {
@@ -74,7 +74,7 @@ func (s *service) Delete(ctx context.Context, id int) error {
 }
 
 
-// Method Patch
+// Method Patch updates appointment info based on its unique identifier.
 func (s *service) Patch(ctx context.Context, updates map[string]interface{}, id int) (models.Appointment, error) {
     existingAppointment, err := s.repository.GetByID(ctx, id)
     if err != nil {
@@ -100,7 +100,7 @@ func (s *service) Patch(ctx context.Context, updates map[string]interface{}, id 
     return updatedAppointment, nil
 }
 
-// applyPartialUpdates function
+// applyPartialUpdates function applies partial updates to an appointment map.
 func applyPartialUpdates(existingAppointment map[string]interface{}, updates map[string]interface{}) (map[string]interface{}, error) {
     changesMade := false
 
@@ -141,15 +141,14 @@ func applyPartialUpdates(existingAppointment map[string]interface{}, updates map
         }
     }
 
-    // Check if any change was made
+    // Checks if any change was made
     if !changesMade {
         return nil, fmt.Errorf("No changes made")
     }
 
     return existingAppointment, nil
 }
-
-
+// GetByPatientsPersonalID retrieves an appointment by the patient's personal identifier.
 func (s *service) GetByPatientsPersonalID(ctx context.Context, patients_personal_id int) (models.Appointment, error) {
 	appointment, err := s.repository.GetByPatientsPersonalID(ctx, patients_personal_id)
 	if err != nil {
