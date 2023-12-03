@@ -26,7 +26,7 @@ func NewControllerAppointments(service appointments.Service) *Controller {
 // @Accept json
 // @Produce json
 // @Param appointmentRequest body models.Appointment true "Appointment details"
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Appointment created"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -41,10 +41,6 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
@@ -52,17 +48,10 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 		
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error ",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, appointment, "Appointment created")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    appointment,
-		// 	"message": "Appointment created",
-		// })
 
 	}
 }
@@ -74,7 +63,6 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Appointment ID" Format(int64)
-// @Security ApiKeyAuth
 // @Success 200 {object} web.response "Appointment found"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -90,10 +78,6 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
@@ -101,17 +85,10 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		appointment, err := c.service.GetByID(ctx, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, appointment, "Appointment found")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    appointment,
-		// 	"message": "Appointment found",
-		// })
 	}
 }
 
@@ -122,7 +99,7 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Appointment ID" Format(int64)
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Appointment updated"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -140,19 +117,11 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
 		if err := ctx.Bind(&appointmentRequest); err != nil {
 			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err.Error())
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "Bad request",
-			// 	"error":   err.Error(),
-			// })
 			return
 		}
 
@@ -160,17 +129,12 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		updatedAppointment, err := c.service.Update(ctx, appointmentRequest, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
+
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, updatedAppointment, "Appointment updated")
-		ctx.JSON(http.StatusOK, gin.H{
-			"data":    updatedAppointment,
-			"message": "Appointment updated",
-		})
+
 	}
 }
 
@@ -181,7 +145,7 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Appointment ID" Format(int64)
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Appointment partially updated"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -197,20 +161,13 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
 		var appointmentUpdates map[string]interface{}
 		if err := ctx.BindJSON(&appointmentUpdates); err != nil {
 			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err.Error())
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "Bad request",
-			// 	"error":   err.Error(),
-			// })
+	
 			return
 		}
 		
@@ -218,18 +175,10 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 		partiallyUpdatedAppointment, err := c.service.Patch(ctx, appointmentUpdates, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error\n%v",err.Error())
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// 	"error":   err.Error(),
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, partiallyUpdatedAppointment, "Appointment partially updated")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    partiallyUpdatedAppointment,
-		// 	"message": "Appointment partially updated",
-		// })
 	}
 }
 
@@ -240,7 +189,7 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Appointment ID" Format(int64)
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Appointment deleted"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -256,10 +205,6 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
@@ -267,16 +212,10 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		err = c.service.Delete(ctx, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, id, "Appointment deleted")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"message": "Appointment deleted",
-		// })
 	}
 }
 
@@ -299,25 +238,16 @@ func (c *Controller) HandlerGetByPatientsPersonalID() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
 		appointment, err := c.service.GetByPatientsPersonalID(ctx, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, appointment, "Appointment found")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data": appointment,
-		// })
+
 	}
 }

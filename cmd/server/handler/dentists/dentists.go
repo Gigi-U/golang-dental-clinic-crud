@@ -25,7 +25,7 @@ func NewControllerDentists(service dentists.Service) *Controller {
 // @Accept json
 // @Produce json
 // @Param dentistRequest body models.Dentist true "Dentist details"
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Dentist created"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -40,27 +40,16 @@ func (c *Controller) HandlerCreate() gin.HandlerFunc {
 
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
 		dentist, err := c.service.Create(ctx, dentistRequest)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, dentist, "Dentist created")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    dentist,
-		// 	"message": "Dentist created",
-		// })
 
 	}
 }
@@ -86,10 +75,6 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
@@ -97,17 +82,11 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 		dentist, err := c.service.GetByID(ctx, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, dentist, "Dentist found")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    dentist,
-		// 	"message": "Dentist found",
-		// })
+	
 	}
 }
 
@@ -118,7 +97,7 @@ func (c *Controller) HandlerGetByID() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Patient ID" Format(int64) Example(1) // The ID of the patient to retrieve
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Dentist updated"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -136,19 +115,11 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
 		if err := ctx.Bind(&dentistRequest); err != nil {
 			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err.Error())
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "Bad request",
-			// 	"error":   err.Error(),
-			// })
 			return
 		}
 
@@ -156,17 +127,10 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 		updatedDentist, err := c.service.Update(ctx, dentistRequest, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, updatedDentist, "Dentist updated")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    updatedDentist,
-		// 	"message": "Dentist updated",
-		// })
 	}
 }
 
@@ -176,8 +140,8 @@ func (c *Controller) HandlerUpdate() gin.HandlerFunc {
 // @Tags Dentists
 // @Accept json
 // @Produce json
-// @Security ApiKeyAuth
 // @Param id path int true "Patient ID" Format(int64) Example(1) // The ID of the patient to retrieve
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Dentist partially updated"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -193,38 +157,22 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
 		var partialUpdates map[string]interface{}
 		if err := ctx.BindJSON(&partialUpdates); err != nil {
 			web.Error(ctx, http.StatusBadRequest, "Bad request: %v", err.Error())
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "Bad request",
-			// 	"error":   err.Error(),
-			// })
 			return
 		}
 		// Call the service to partially update
 		partiallyUpdatedDentist, err := c.service.Patch(ctx, partialUpdates, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// 	"error":   err.Error(),
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, partiallyUpdatedDentist, "Dentist partially updated")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"data":    partiallyUpdatedDentist,
-		// 	"message": "Dentist partially updated",
-		// })
 	}
 }
 
@@ -235,7 +183,7 @@ func (c *Controller) HandlerPatch() gin.HandlerFunc {
 // @Accept json
 // @Produce json
 // @Param id path int true "Patient ID" Format(int64) Example(1) // The ID of the patient to retrieve
-// @Security ApiKeyAuth
+// @Param TokenPostman header string true "token"
 // @Success 200 {object} web.response "Dentist deleted"
 // @Failure 400 {object} web.errorResponse "Bad request"
 // @Failure 401 {object} web.errorResponse "Unauthorized: Invalid or missing API key"
@@ -251,10 +199,6 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		id, err := strconv.Atoi(idParam)
 		if err != nil {
 			web.Error(ctx, http.StatusBadRequest, "bad request: %v", err)
-			// ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			// 	"message": "bad request",
-			// 	"error":   err,
-			// })
 			return
 		}
 
@@ -262,15 +206,9 @@ func (c *Controller) HandlerDelete() gin.HandlerFunc {
 		err = c.service.Delete(ctx, id)
 		if err != nil {
 			web.Error(ctx, http.StatusInternalServerError, "Internal server error")
-			// ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			// 	"message": "Internal server error",
-			// })
 			return
 		}
 
 		web.Success(ctx, http.StatusOK, id, "Dentist deleted")
-		// ctx.JSON(http.StatusOK, gin.H{
-		// 	"message": "Dentist deleted",
-		// })
 	}
 }

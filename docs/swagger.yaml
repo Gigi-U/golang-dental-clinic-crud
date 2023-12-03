@@ -84,6 +84,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.Appointment'
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -103,8 +108,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Create an appointment
       tags:
       - Appointments
@@ -119,6 +122,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -138,8 +146,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Delete an appointment by ID
       tags:
       - Appointments
@@ -172,8 +178,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Get an appointment by ID
       tags:
       - Appointments
@@ -187,6 +191,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -206,8 +215,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Patch an appointment by ID
       tags:
       - Appointments
@@ -221,6 +228,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -240,8 +252,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Update an appointment by ID
       tags:
       - Appointments
@@ -285,6 +295,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.Dentist'
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -304,8 +319,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Create a Dentist
       tags:
       - Dentists
@@ -321,6 +334,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -340,8 +358,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Delete a Dentist by ID
       tags:
       - Dentists
@@ -385,6 +401,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -404,8 +425,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Patch a Dentist by ID
       tags:
       - Dentists
@@ -420,6 +439,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -439,8 +463,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Update a Dentist by ID
       tags:
       - Dentists
@@ -455,6 +477,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/models.Patient'
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -474,8 +501,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Create a Patient
       tags:
       - Patients
@@ -491,6 +516,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -510,8 +540,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Delete a Patient by Id
       tags:
       - Patients
@@ -555,6 +583,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -574,8 +607,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Patch a Patient by Id
       tags:
       - Patients
@@ -590,6 +621,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: token
+        in: header
+        name: TokenPostman
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -609,8 +645,6 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/web.errorResponse'
-      security:
-      - ApiKeyAuth: []
       summary: Update a Patient by Id
       tags:
       - Patients

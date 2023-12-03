@@ -18,11 +18,6 @@ const docTemplate = `{
     "paths": {
         "/appointments": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -42,6 +37,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Appointment"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -118,11 +120,6 @@ const docTemplate = `{
         },
         "/appointments/{id}": {
             "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -171,11 +168,6 @@ const docTemplate = `{
                 }
             },
             "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -193,6 +185,13 @@ const docTemplate = `{
                         "description": "Appointment ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -224,11 +223,6 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -246,6 +240,13 @@ const docTemplate = `{
                         "description": "Appointment ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -277,11 +278,6 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -299,6 +295,13 @@ const docTemplate = `{
                         "description": "Appointment ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -332,11 +335,6 @@ const docTemplate = `{
         },
         "/dentists": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -356,6 +354,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Dentist"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -431,11 +436,6 @@ const docTemplate = `{
                 }
             },
             "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -454,6 +454,13 @@ const docTemplate = `{
                         "description": "Patient ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -485,11 +492,6 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -508,6 +510,13 @@ const docTemplate = `{
                         "description": "Patient ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -539,11 +548,6 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -562,6 +566,13 @@ const docTemplate = `{
                         "description": "Patient ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -595,11 +606,6 @@ const docTemplate = `{
         },
         "/patients": {
             "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -619,6 +625,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/models.Patient"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -694,11 +707,6 @@ const docTemplate = `{
                 }
             },
             "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -717,6 +725,13 @@ const docTemplate = `{
                         "description": "Patient ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -748,11 +763,6 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -771,6 +781,13 @@ const docTemplate = `{
                         "description": "Patient ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -802,11 +819,6 @@ const docTemplate = `{
                 }
             },
             "patch": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -825,6 +837,13 @@ const docTemplate = `{
                         "description": "Patient ID",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "TokenPostman",
+                        "in": "header",
                         "required": true
                     }
                 ],
