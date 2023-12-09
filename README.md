@@ -4,7 +4,7 @@ CTD Digital House - EB3 Go  - Trabajo Final Integrador  - CRUD de Sistema de res
 <h1 align="center">Desafío Final</h1>
 
 <div align="center">
-  <img src="https://github.com/Gigi-U/eb3_desafio_Final_grupo03/assets/87839629/8634a63a-d2f2-4c08-b4a5-9c8c000502db" width="470" height="250">
+  <img src="https://github.com/Gigi-U/golang-dental-clinic-crud/assets/87839629/8634a63a-d2f2-4c08-b4a5-9c8c000502db" width="470" height="250">
 </div>
 
 <img src="https://img.shields.io/badge/Go-1.20+-00ADD8?style=for-the-badge&logo=go">
@@ -57,7 +57,7 @@ La aplicación debe ser desarrollada en diseño orientado a paquetes:
 -------------------------------------------------------------------------------------------
 
 
-      EB3_DESAFIO_FINAL_GRUPO03
+      GOLANG-DENTAL-CLINIC-CRUD
         |--> go.mod + go.sum + .env
         |
         |___.vscode --> settings.json
@@ -103,9 +103,9 @@ La aplicación debe ser desarrollada en diseño orientado a paquetes:
 -------------------------------------------------------------------------------------------
 ✔️ COMMANDS para paquetes y/o librerias
 -------------------------------------------------------------------------------------------
-      -   repository clone --> git clone git@github.com:Gigi-U/eb3_desafio_Final_grupo03.git
+      -   repository clone --> git clone git@github.com:Gigi-U/golang-dental-clinic-crud.git
 
-      -   SERVIDOR WEB --> go mod init github.com/Gigi-U/eb3_desafio_Final_grupo03.git
+      -   SERVIDOR WEB --> go mod init github.com/Gigi-U/golang-dental-clinic-crud.git
 
       -   GIN --> command: go get -u github.com/gin-gonic/gin  
 

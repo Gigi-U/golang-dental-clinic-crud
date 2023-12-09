@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/dentists"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/web"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/dentists"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/models"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/pkg/web"
 	"github.com/gin-gonic/gin"
 )
 

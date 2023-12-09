@@ -4,8 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/models"
 )
+
 // Service is an interface defining the methods for dentist operations.
 type Service interface {
 	Create(ctx context.Context, dentist models.Dentist) (models.Dentist, error)

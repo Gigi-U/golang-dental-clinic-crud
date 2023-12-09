@@ -7,8 +7,8 @@ import (
 	"os"
 
 
-	router "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/router"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/middleware"
+	router "github.com/Gigi-U/golang-dental-clinic-crud.git/cmd/server/router"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/pkg/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
@@ -16,7 +16,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/docs"
+	_ "github.com/Gigi-U/golang-dental-clinic-crud.git/docs"
 	
 )
 

@@ -6,9 +6,10 @@ import (
 	"log"
 	"time"
 
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/utils"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/models"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/pkg/utils"
 )
+
 // Service is an interface defining methods for appointment-related operations.
 type Service interface {
 	Create(ctx context.Context, appointment models.Appointment) (models.Appointment, error)

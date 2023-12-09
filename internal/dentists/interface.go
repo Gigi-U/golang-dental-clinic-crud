@@ -3,7 +3,7 @@ package dentists
 import (
 	"context"
 
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/models"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/models"
 )
 
 // Repository is an interface defining methods for dentist-related operations.

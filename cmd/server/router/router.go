@@ -3,15 +3,15 @@ package router
 import (
 	"database/sql"
 
-	handlerPing "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/ping"
-	handlerPatients "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/patients"
-	handlerDentists "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/dentists"
-	handlerAppointments "github.com/Gigi-U/eb3_desafio_Final_grupo03.git/cmd/server/handler/appointments"
+	handlerPing "github.com/Gigi-U/golang-dental-clinic-crud.git/cmd/server/handler/ping"
+	handlerPatients "github.com/Gigi-U/golang-dental-clinic-crud.git/cmd/server/handler/patients"
+	handlerDentists "github.com/Gigi-U/golang-dental-clinic-crud.git/cmd/server/handler/dentists"
+	handlerAppointments "github.com/Gigi-U/golang-dental-clinic-crud.git/cmd/server/handler/appointments"
 	
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/appointments"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/dentists"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/internal/patients"
-	"github.com/Gigi-U/eb3_desafio_Final_grupo03.git/pkg/middleware"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/appointments"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/dentists"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/internal/patients"
+	"github.com/Gigi-U/golang-dental-clinic-crud.git/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
